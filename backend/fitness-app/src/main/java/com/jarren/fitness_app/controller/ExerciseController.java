@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/exercises")
 public class ExerciseController {
 
     @Autowired

@@ -10,7 +10,8 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long time;
+    private String name;
+    private int time;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -23,8 +24,11 @@ public class Workout {
     public Long getId(){return id;}
     public void setId(Long id){this.id = id;}
 
-    public Long getTime(){return time;}
-    public void setTime(Long time){this.time = time;}
+    public String getName(){return name;}
+    public void setName(String name){this.name = name;}
+
+    public int getTime(){return time;}
+    public void setTime(int time){this.time = time;}
 
     public User getUser(){return user;}
     public void setUser(User user){this.user = user;}
