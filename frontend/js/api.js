@@ -1,4 +1,4 @@
-const BASE_URL = "https://localhost:8080/api" //Store root to backend
+const BASE_URL = "http://localhost:8080/api" //Store root to backend
 
 async function createUser(username, email, password){
     const response = await fetch(`${BASE_URL}/users`,

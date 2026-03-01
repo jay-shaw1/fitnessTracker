@@ -6,6 +6,7 @@ import com.jarren.fitness_app.repo.UserRepository;
 import com.jarren.fitness_app.model.User;
 import java.util.List;
 
+@CrossOrigin(origins = "*") //allows requests from any origin (for dev)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
