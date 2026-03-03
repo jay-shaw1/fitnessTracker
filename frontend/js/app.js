@@ -14,3 +14,19 @@ async function signUp(){
         message.style.color = 'red';
     }  
 }
+
+async function signIn(){
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const result = await loginUser(email, password);
+    const message = document.getElementById('message');
+
+    if (result == "Login successful!"){
+        message.textContent = 'Welcome Back!';
+        message.style.color = 'green';
+    }else{
+        message.textContent = 'Invalid Email or Password.';
+        message.style.color = 'red';
+    }
+}

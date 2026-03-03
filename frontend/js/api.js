@@ -13,6 +13,18 @@ async function createUser(username, email, password){
     return response.json();
 }
 
+async function loginUser(email, password){
+    const response = await fetch(`${BASE_URL}/users/login`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+    return response.text();
+}
+
 async function getWorkouts(){
     const response = await fetch(`${BASE_URL}/workouts`);
     return response.json();
