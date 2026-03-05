@@ -41,3 +41,41 @@ function handleWorkoutChoice(){
         customInput.style.display = 'none';
     }
 }
+
+function getWorkoutName(){
+    const choice = document.getElementById('workout-select').value;
+    const customInput = document.getElementById('custom-workout').value;
+
+    if (choice == 'other'){
+        return customInput;
+    }
+    return choice;
+}
+
+function goToSets(){
+    const exerciseName = document.getElementById('exercise-name').value;
+    const sets = document.getElementById('sets-num').value;
+
+    sessionStorage.setItem('exerciseName', exerciseName);
+    sessionStorage.setItem('sets', sets);
+
+    window.location.href = 'sets.html';
+}
+
+function loadSetsPage(){
+    const exerciseName = sessionStorage.getItem('exerciseName');
+    const sets = parseInt(sessionStorage.getItem('sets'));
+
+    document.getElementById('exercise-title').textContent = exerciseName;
+
+    const container = document.getElementById('sets-container');
+
+    for (let i = 1; i <= sets; i++){
+        container.innerHTML += `
+            <div class="set-row">
+                <label>Set ${i}</label>
+                <input type="number" id="rep-${i}" placeholder="Reps">
+                <input type="number" id="weight-${i}" placeholder="Weight (lbs)">
+            </div>`;
+    }
+}

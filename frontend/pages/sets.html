@@ -2,22 +2,19 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Exercise</title>
+        <title>Sets</title>
         <link rel="stylesheet" href="../style.css">
     </head>
 
-    <body>
+    <body onload="loadSetsPage()">
         <nav>
-            <h1>Fitness Track</h1>
+            <h2>Fitness Track</h2>
             <a href="../index.html">Home</a>
         </nav>
 
         <main>
-            <h2>What exercise are you doing: </h2>
-            <input id="exercise-name" placeholder="Exercise">
-            <h2>How many sets are you doing: </h2>
-            <input id="sets-num" placeholder="Sets">
-            <button onclick="goToSets()">Continue</button>
+            <h2 id="exercise-title"></h2>
+            <div id="sets-container"></div>
         </main>
 
         <script src="../js/api.js"></script>
