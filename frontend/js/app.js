@@ -30,3 +30,14 @@ async function signIn(){
         message.style.color = 'red';
     }
 }
+
+function handleWorkoutChoice(){
+    const choice = document.getElementById('workout-select').value;
+    const customInput = document.getElementById('custom-workout');
+
+    if (choice == 'other'){
+        customInput.style.display = 'block';
+    }else{
+        customInput.style.display = 'none';
+    }
+}
