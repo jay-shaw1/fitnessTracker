@@ -1,5 +1,8 @@
 package com.jarren.fitness_app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,14 +13,16 @@ public class Exercise {
     private Long id;
 
     private String name;
-    private int reps;
-    private int sets;
-    private double restTime;
-    private int intensityLevel;
+    private int setNum;
 
     @ManyToOne
     @JoinColumn(name = "workout_id")
+    @JsonBackReference
     private Workout workout;
+
+    @OneToMany(mappedBy = "sets")
+    @JsonManagedReference
+    private List<ExerciseSet> sets;
 
     //getters and setters
     public Long getId(){return id;}
@@ -26,19 +31,13 @@ public class Exercise {
     public String getName(){return name;}
     public void setName(String name){this.name = name;}
 
-    public int getReps(){return reps;}
-    public void setReps(int reps){this.reps = reps;}
-
-    public int getSets(){return sets;}
-    public void setSets(int sets){this.sets = sets;}
-
-    public double getRestTime(){return restTime;}
-    public void setRestTime(double restTime){this.restTime = restTime;}
-
-    public int getIntensityLevel(){return intensityLevel;}
-    public void setIntensityLevel(int intensityLevel){this.intensityLevel = intensityLevel;}
+    public int getSetsNum(){return setNum;}
+    public void setSetsNum(int setNum){this.setNum = setNum;}
 
     public Workout getWorkout(){return workout;}
     public void setWorkout(Workout workout){this.workout = workout;}
+
+    public List<ExerciseSet> getSets(){return sets;}
+    public void setSets(List<ExerciseSet> sets){this.sets = sets;}
 
 }
