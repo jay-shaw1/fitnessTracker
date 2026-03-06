@@ -52,6 +52,21 @@ function getWorkoutName(){
     return choice;
 }
 
+function goToExercise(){
+    const workoutName = getWorkoutName();
+
+    sessionStorage.setItem('workoutName', workoutName);
+
+    window.location.href = 'exercise.html'
+}
+
+function loadExercisePage(){
+    const workoutName = sessionStorage.getItem('workoutName');
+
+    document.getElementById('workout-title').textContent = workoutName;
+
+}
+
 function goToSets(){
     const exerciseName = document.getElementById('exercise-name').value;
     const sets = document.getElementById('sets-num').value;
@@ -63,9 +78,11 @@ function goToSets(){
 }
 
 function loadSetsPage(){
+    const workoutName = sessionStorage.getItem('workoutName');
     const exerciseName = sessionStorage.getItem('exerciseName');
     const sets = parseInt(sessionStorage.getItem('sets'));
 
+    document.getElementById('workout-title').textContent = workoutName;
     document.getElementById('exercise-title').textContent = exerciseName;
 
     const container = document.getElementById('sets-container');

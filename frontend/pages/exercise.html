@@ -6,16 +6,17 @@
         <link rel="stylesheet" href="../style.css">
     </head>
 
-    <body>
+    <body onload="loadExercisePage()">
         <nav>
             <h1>Fitness Track</h1>
             <a href="../index.html">Home</a>
         </nav>
 
         <main>
-            <h2>What exercise are you doing: </h2>
+            <h2 id="workout-title"></h2>
+            <h3>What exercise are you doing: </h3>
             <input id="exercise-name" placeholder="Exercise">
-            <h2>How many sets are you doing: </h2>
+            <h3>How many sets are you doing: </h3>
             <input id="sets-num" placeholder="Sets">
             <button onclick="goToSets()">Continue</button>
         </main>
