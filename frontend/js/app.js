@@ -93,6 +93,7 @@ function loadSetsPage(){
                 <label>Set ${i}</label>
                 <input type="number" id="rep-${i}" placeholder="Reps">
                 <input type="number" id="weight-${i}" placeholder="Weight (lbs)">
+                <input type="number" id="intensity-${i}" placeholder="Intensity Level">
             </div>`;
     }
 }

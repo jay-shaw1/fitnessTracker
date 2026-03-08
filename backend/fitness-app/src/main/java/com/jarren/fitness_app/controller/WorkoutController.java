@@ -22,4 +22,12 @@ public class WorkoutController {
     public List<Workout> getAllWorkouts(){
         return workoutRepo.findAll();
     }
+
+    //Redo to handle if Id doesn't exist
+    @PatchMapping("/{id}/true")
+    public Workout updateStatus(@PathVariable Long id){
+        Workout workout = workoutRepo.findById(id).get();
+        workout.setStatus(true);
+        return workoutRepo.save(workout);
+    }
 }
