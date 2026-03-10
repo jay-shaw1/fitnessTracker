@@ -22,17 +22,23 @@ async function loginUser(email, password){
             },
             body: JSON.stringify({ email, password })
         });
-    return response.text();
+    if (response.ok){
+        return response.json();
+    }else{
+        return response.text();
+    }
 }
 
-async function saveWorkout(name, time, status){
+async function saveWorkout(userId, name, time, status){
     const response = await fetch(`${BASE_URL}/workouts`,
         {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({ name, time, status })
+            body: JSON.stringify({ name, time, status,
+                user : { id : userId }
+             })
         }
     );
     return response.json();

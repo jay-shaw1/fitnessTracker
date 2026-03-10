@@ -22,9 +22,13 @@ async function signIn(){
     const result = await loginUser(email, password);
     const message = document.getElementById('message');
 
-    if (result == "Login successful!"){
+    if (result.id){
+        sessionStorage.setItem('userId', result.id);
+        sessionStorage.setItem('username', result.username);
         message.textContent = 'Welcome Back!';
         message.style.color = 'green';
+        window.location.href = '../index.html'
+
     }else{
         message.textContent = 'Invalid Email or Password.';
         message.style.color = 'red';
@@ -52,25 +56,21 @@ function getWorkoutName(){
     return choice;
 }
 
-async function goToExercise(){
+async function createWorkout(){
     const workoutName = getWorkoutName();
     const time = document.getElementById('time-select').value;
-    const message = document.getElementById('message');
+    //const message = document.getElementById('message');
+    const userId = sessionStorage.getItem('userId');
     const status = true;
 
-    const result = await saveWorkout(workoutName, time, status);
+    const result = await saveWorkout(userId, workoutName, time, status);
 
-    sessionStorage.setItem('workoutName', workoutName);
-
-    if (result.status){
-        message.textContent = 'Workout now in progress.';
-        message.style.color = 'green';
-    }else{
-        message.textContent = 'Something went wrong. Try again.';
-        message.style.color = 'red';
+    if (result.id){
+        sessionStorage.setItem('workoutName', workoutName);
+        sessionStorage.setItem('workoutId', result.id);
+        window.location.href = 'exercise.html';
     }
 
-    //window.location.href = 'exercise.html'
 }
 
 function loadExercisePage(){

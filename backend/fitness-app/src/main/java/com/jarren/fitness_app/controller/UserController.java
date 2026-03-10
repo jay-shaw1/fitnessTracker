@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User loginRequest){
+    public ResponseEntity<?> login(@RequestBody User loginRequest){
 
         //Retrieve users with same email
         List<User> users = userRepo.findByEmail(loginRequest.getEmail());
@@ -43,7 +43,7 @@ public class UserController {
         //ResponseEntity<String> response = null;
 
         if (user.getPassword().equals(loginRequest.getPassword())){ //check if passwords match
-                return ResponseEntity.ok("Login successful!"); 
+                return ResponseEntity.ok(user); 
             }else{
                 return ResponseEntity.status(401).body("Invalid password.");
             }
