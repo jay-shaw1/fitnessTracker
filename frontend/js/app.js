@@ -80,7 +80,7 @@ function loadExercisePage(){
 
 }
 
-async function goToSets(){
+async function createExercise(){
     const exerciseName = document.getElementById('exercise-name').value;
     const sets = document.getElementById('sets-num').value;
     const workoutId = sessionStorage.getItem('workoutId');
@@ -114,4 +114,6 @@ function loadSetsPage(){
                 <input type="number" id="intensity-${i}" placeholder="Intensity Level">
             </div>`;
     }
+
+    
 }
