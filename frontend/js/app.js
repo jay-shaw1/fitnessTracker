@@ -52,12 +52,25 @@ function getWorkoutName(){
     return choice;
 }
 
-function goToExercise(){
+async function goToExercise(){
     const workoutName = getWorkoutName();
+    const time = document.getElementById('time-select').value;
+    const message = document.getElementById('message');
+    const status = true;
+
+    const result = await saveWorkout(workoutName, time, status);
 
     sessionStorage.setItem('workoutName', workoutName);
 
-    window.location.href = 'exercise.html'
+    if (result.status){
+        message.textContent = 'Workout now in progress.';
+        message.style.color = 'green';
+    }else{
+        message.textContent = 'Something went wrong. Try again.';
+        message.style.color = 'red';
+    }
+
+    //window.location.href = 'exercise.html'
 }
 
 function loadExercisePage(){

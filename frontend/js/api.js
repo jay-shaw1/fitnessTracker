@@ -25,6 +25,19 @@ async function loginUser(email, password){
     return response.text();
 }
 
+async function saveWorkout(name, time, status){
+    const response = await fetch(`${BASE_URL}/workouts`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ name, time, status })
+        }
+    );
+    return response.json();
+}
+
 async function getWorkouts(){
     const response = await fetch(`${BASE_URL}/workouts`);
     return response.json();

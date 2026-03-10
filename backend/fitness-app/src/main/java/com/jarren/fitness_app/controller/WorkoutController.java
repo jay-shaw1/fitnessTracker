@@ -6,6 +6,7 @@ import com.jarren.fitness_app.repo.WorkoutRepository;
 import com.jarren.fitness_app.model.Workout;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/workouts")
 public class WorkoutController {
