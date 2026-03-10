@@ -6,7 +6,7 @@ import com.jarren.fitness_app.model.Exercise;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/exercises")
 public class ExerciseController {

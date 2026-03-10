@@ -80,14 +80,19 @@ function loadExercisePage(){
 
 }
 
-function goToSets(){
+async function goToSets(){
     const exerciseName = document.getElementById('exercise-name').value;
     const sets = document.getElementById('sets-num').value;
+    const workoutId = sessionStorage.getItem('workoutId');
 
-    sessionStorage.setItem('exerciseName', exerciseName);
-    sessionStorage.setItem('sets', sets);
+    const result = await saveExercise(exerciseName, sets, workoutId);
 
-    window.location.href = 'sets.html';
+    if (result.id){
+        sessionStorage.setItem('exerciseName', exerciseName);
+        sessionStorage.setItem('sets', sets);
+        sessionStorage.setItem('exerciseId', result.id);
+        window.location.href = 'sets.html';
+    }
 }
 
 function loadSetsPage(){
