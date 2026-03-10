@@ -20,7 +20,7 @@ public class Exercise {
     @JsonBackReference
     private Workout workout;
 
-    @OneToMany(mappedBy = "sets")
+    @OneToMany(mappedBy = "exercise")
     @JsonManagedReference
     private List<ExerciseSet> sets;
 
