@@ -25,10 +25,10 @@ public class WorkoutController {
     }
 
     //Redo to handle if Id doesn't exist
-    @PatchMapping("/{id}/true")
+    @PatchMapping("/{id}/complete")
     public Workout updateStatus(@PathVariable Long id){
         Workout workout = workoutRepo.findById(id).get();
-        workout.setStatus(true);
+        workout.setStatus(false);
         return workoutRepo.save(workout);
     }
 }

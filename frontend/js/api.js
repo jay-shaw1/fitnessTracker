@@ -60,6 +60,33 @@ async function saveExercise(name, sets, workoutId){
     return response.json();
 }
 
+async function saveSetApi(exerciseId, setNum, reps, weight, intensityLevel){
+    const response = await fetch(`${BASE_URL}/sets`,
+        {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ setNum, reps, weight, intensityLevel,
+                exercise : { id : exerciseId }
+            })
+        }
+    );
+    return response.json();
+}
+
+async function endWorkout(workoutId){
+    const response = await fetch(`${BASE_URL}/workouts/${workoutId}/complete`,
+        {
+            method : 'PATCH',
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        }
+    );
+    return response.json();
+}
+
 async function getWorkouts(){
     const response = await fetch(`${BASE_URL}/workouts`);
     return response.json();

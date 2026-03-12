@@ -68,6 +68,7 @@ async function createWorkout(){
     if (result.id){
         sessionStorage.setItem('workoutName', workoutName);
         sessionStorage.setItem('workoutId', result.id);
+        sessionStorage.setItem('status', status);
         window.location.href = 'exercise.html';
     }
 
@@ -116,4 +117,25 @@ function loadSetsPage(){
     }
 
     
+}
+
+async function saveSet(action){
+    const sets = parseInt(sessionStorage.getItem('sets'));
+    const exerciseId = sessionStorage.getItem('exerciseId');
+    const workoutId = sessionStorage.getItem('workoutId');
+
+    for (let i = 1; i <= sets; i++){
+        const reps = document.getElementById(`rep-${i}`).value;
+        const weight = document.getElementById(`weight-${i}`).value;
+        const intensity = document.getElementById(`intensity-${i}`).value;
+        await saveSetApi(exerciseId, i, reps, weight, intensity);
+    }
+
+    if (action == 'exercise'){
+        window.location.href = 'exercise.html';
+    }else{
+        await endWorkout(workoutId);
+        window.location.href = '../index.html';
+    }
+
 }

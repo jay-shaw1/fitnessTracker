@@ -9,6 +9,7 @@ public class ExerciseSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int setNum;
     private int reps;
     private double weight;
     private int intensityLevel;
@@ -33,4 +34,7 @@ public class ExerciseSet {
 
     public Exercise getExercise(){return exercise;}
     public void setExercise(Exercise exercise){this.exercise = exercise;}
+
+    public int getSetNum(){return setNum;}
+    public void setSetNum(int setNum){this.setNum = setNum;}
 }
