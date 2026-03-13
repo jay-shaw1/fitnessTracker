@@ -1,7 +1,10 @@
 package com.jarren.fitness_app.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -14,6 +17,7 @@ public class Workout {
     private String name;
     private int time;
     private boolean status;
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -41,4 +45,7 @@ public class Workout {
 
     public List<Exercise> getExercises(){return exercises;}
     public void setExercises(List<Exercise> exercises){this.exercises = exercises;}
+
+    public LocalDateTime getDate(){return date;}
+    public void setDate(LocalDateTime date){this.date = date;}
 }

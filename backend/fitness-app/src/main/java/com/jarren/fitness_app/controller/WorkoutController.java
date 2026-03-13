@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.jarren.fitness_app.repo.WorkoutRepository;
 import com.jarren.fitness_app.model.Workout;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -16,6 +17,7 @@ public class WorkoutController {
 
     @PostMapping
     public Workout createWorkout(@RequestBody Workout workout){
+        workout.setDate(LocalDateTime.now());
         return workoutRepo.save(workout);
     }
 
