@@ -139,3 +139,11 @@ async function saveSet(action){
     }
 
 }
+
+//temporary frontend check for dev
+function checkAuth(){
+    const userId = sessionStorage.getItem('userId');
+    if (!userId){
+        window.location.href = 'signin.html'
+    }
+}
