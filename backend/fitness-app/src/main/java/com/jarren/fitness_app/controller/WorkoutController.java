@@ -6,6 +6,8 @@ import com.jarren.fitness_app.repo.WorkoutRepository;
 import com.jarren.fitness_app.model.Workout;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,10 +23,16 @@ public class WorkoutController {
         return workoutRepo.save(workout);
     }
 
-    @GetMapping
-    public List<Workout> getAllWorkouts(){
-        return workoutRepo.findAll();
+    @GetMapping("/users/{userId}")
+    public List<Workout> getWorkoutsByUser(@PathVariable Long userId){
+        return workoutRepo.findByUserAndStatus(userId, false);
     }
+
+    @GetMapping("/{id}")
+    public Workout getWorkoutById(@PathVariable Long id) {
+        return workoutRepo.findById(id).get();
+    }
+    
 
     //Redo to handle if Id doesn't exist
     @PatchMapping("/{id}/complete")

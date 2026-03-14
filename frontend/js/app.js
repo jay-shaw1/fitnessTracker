@@ -147,3 +147,26 @@ function checkAuth(){
         window.location.href = 'signin.html'
     }
 }
+
+async function loadDashboard(){
+    checkAuth();
+    const userId = sessionStorage.getItem('userID');
+    const workouts = await getWorkoutHistory(userId);
+    const container = document.getElementById('workout-list');
+
+    if (workouts == null){
+        container.innerHTML = '<p>No workouts logged yet. Start your first one!</p>'
+        return;
+    }
+
+    workouts.forEach(workout => {
+        const date = new date(workout.date).toLocaleDateString(); //formats date to user's locale
+        container.innerHTML += `
+        <div class="workout-card">
+            <h3>${workout.name}</h3>
+            <p>${date}</p>
+            <button onclick="viewWorkout(${workout.id})">View Details</button>
+        </div>`
+    });
+
+}

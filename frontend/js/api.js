@@ -87,7 +87,12 @@ async function endWorkout(workoutId){
     return response.json();
 }
 
-async function getWorkouts(){
-    const response = await fetch(`${BASE_URL}/workouts`);
+async function getWorkoutHistory(userId){
+    const response = await fetch(`${BASE_URL}/workouts/users/${userId}`);
+    return response.json();
+}
+
+async function viewWorkout(workoutId){
+    const response = await fetch(`${BASE_URL}/workouts/${workoutId}`)
     return response.json();
 }
