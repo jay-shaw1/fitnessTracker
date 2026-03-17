@@ -92,7 +92,7 @@ async function getWorkoutHistory(userId){
     return response.json();
 }
 
-async function viewWorkout(workoutId){
+async function getWorkout(workoutId){
     const response = await fetch(`${BASE_URL}/workouts/${workoutId}`)
     return response.json();
 }

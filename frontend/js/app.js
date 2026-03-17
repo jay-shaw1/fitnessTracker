@@ -135,7 +135,7 @@ async function saveSet(action){
         window.location.href = 'exercise.html';
     }else{
         await endWorkout(workoutId);
-        window.location.href = '../index.html';
+        window.location.href = 'dashboard.html';
     }
 
 }
@@ -150,17 +150,21 @@ function checkAuth(){
 
 async function loadDashboard(){
     checkAuth();
-    const userId = sessionStorage.getItem('userID');
-    const workouts = await getWorkoutHistory(userId);
+    const userId = sessionStorage.getItem('userId');
+    const username = sessionStorage.getItem('username');
+    const workouts = await getWorkoutHistory(parseInt(userId));
     const container = document.getElementById('workout-list');
+    const container2 = document.getElementById('welcome-message');
 
-    if (workouts == null){
-        container.innerHTML = '<p>No workouts logged yet. Start your first one!</p>'
+    container2.innerHTML = `<h2>Welcome ${username}!</h2>`;
+
+    if (workouts.length == 0){
+        container.innerHTML = '<p>No workouts logged yet. Start your first one!</p>';
         return;
     }
 
     workouts.forEach(workout => {
-        const date = new date(workout.date).toLocaleDateString(); //formats date to user's locale
+        const date = new Date(workout.date).toLocaleDateString(); //formats date to user's locale
         container.innerHTML += `
         <div class="workout-card">
             <h3>${workout.name}</h3>
@@ -168,5 +172,4 @@ async function loadDashboard(){
             <button onclick="viewWorkout(${workout.id})">View Details</button>
         </div>`
     });
-
 }

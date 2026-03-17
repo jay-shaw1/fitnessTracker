@@ -5,5 +5,5 @@ import com.jarren.fitness_app.model.Workout;
 import java.util.List;
 
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
-    List<Workout> findByUserAndStatus(Long userId, boolean status);
+    List<Workout> findByUser_IdAndStatus(Long userId, boolean status);
 }
