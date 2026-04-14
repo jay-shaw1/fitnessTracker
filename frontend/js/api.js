@@ -96,3 +96,13 @@ async function getWorkout(workoutId){
     const response = await fetch(`${BASE_URL}/workouts/${workoutId}`)
     return response.json();
 }
+
+async function getExercisesByWorkout(workoutId){
+    const response = await fetch(`${BASE_URL}/exercises/workout/${workoutId}`);
+    return response.json();
+}
+
+async function getSetsByExercise(exerciseId){
+    const response = await fetch(`${BASE_URL}/sets/exercise/${exerciseId}`);
+    return response.json();
+}
