@@ -169,7 +169,41 @@ async function loadDashboard(){
         <div class="workout-card">
             <h3>${workout.name}</h3>
             <p>${date}</p>
-            <button onclick="viewWorkout(${workout.id})">View Details</button>
+            <button onclick="toggleWorkoutDetails(${workout.id})">View Details</button>
+            <div id="details-${workout.id}" style="display:none"></div>
         </div>`
     });
+}
+
+async function toggleWorkoutDetails(workoutId){
+    const detailsDiv = document.getElementById(`details-${workoutId}`);
+
+    //Hide details if details showing
+    if (detailsDiv.style.display === 'block'){
+        detailsDiv.style.display = 'none';
+        return;
+    }
+
+    //fetch exercises
+    const exercises = await getExercisesByWorkout(workoutId);
+
+    let html = '';
+
+    for (const exercise of exercises){
+        html += `<div class="exercise-detail">
+                    <h4>${exercise.name}</h4>`;
+
+        //fetch sets
+        const sets = await getSetsByExercise(exercise.id);
+
+        sets.forEach(set => {
+            html += `<p>Set ${set.setNum}:
+                    ${set.reps} reps @ ${set.weight} lbs</p>`;
+        });
+
+        html += '</div>';
+    }
+
+    detailsDiv.innerHTML = html;
+    detailsDiv.style.display = 'block';
 }
