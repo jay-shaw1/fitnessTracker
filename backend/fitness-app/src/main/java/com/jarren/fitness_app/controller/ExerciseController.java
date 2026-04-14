@@ -23,4 +23,10 @@ public class ExerciseController {
     public List<Exercise> getAllExercises(){
         return exerciseRepo.findAll();
     }
+
+    @GetMapping("/workout/{workoutId}")
+    public List<Exercise> getExercisesByWorkout(@PathVariable Long workoutId) {
+        return exerciseRepo.findByWorkoutId(workoutId);
+    }
+
 }
