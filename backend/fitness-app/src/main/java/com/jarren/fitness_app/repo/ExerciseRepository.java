@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, Long>{
     List<Exercise> findByWorkoutId(Long workoutId);
+    List<Exercise> findByWorkout_UserIdAndNameContainingIgnoreCase(Long userId, String name);
 }

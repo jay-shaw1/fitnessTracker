@@ -158,7 +158,7 @@ async function loadDashboard(){
 
     container2.innerHTML = `<h2>Welcome ${username}!</h2>`;
 
-    if (workouts.length == 0){
+    if (workouts.length === 0){
         container.innerHTML = '<p>No workouts logged yet. Start your first one!</p>';
         return;
     }
@@ -208,35 +208,80 @@ async function toggleWorkoutDetails(workoutId){
     detailsDiv.style.display = 'block';
 }
 
-document.getElementById('search-filter').addEventListener('change', function(){
-    const input = document.getElementById('search-input');
-    if (this.value === 'date'){
-        input.type = 'date';
-    }else{
-        input.type = 'text';
-        input.placeholder = 'Search...';
-    }
-});
+const searchFilter = document.getElementById('search-filter');
+if (searchFilter){
+    searchFilter.addEventListener('change', function(){
+        const input = document.getElementById('search-input');
+        if (this.value === 'date'){
+            input.type = 'date';
+        }else{
+            input.type = 'text';
+            input.placeholder = 'Search...';
+        }
+    });
+}
+
 
 async function search(){
     const filter = document.getElementById('search-filter').value;
     const query = document.getElementById('search-input').value;
     const userId = sessionStorage.getItem('userId');
+    document.getElementById('search-results').innerHTML = '';
 
     if (!query) return;
 
-    query = query.toLowerCase();
     let results = [];
 
     if (filter === 'workout'){
         results = await searchByWorkout(query, userId);
-        displaySearchResults(results);
+        displayWorkoutResults(results);
     } else if (filter === 'exercise'){
         results = await searchByExercise(query, userId);
-        displaySearchResults(results);
+        displayExerciseResults(results);
     } else if (filter === 'date'){
         results = await searchByDate(query, userId);
-        displaySearchResults(results);
+        displayWorkoutResults(results);
     }
+}
 
+function displayWorkoutResults(results){
+    const html = document.getElementById('search-results');
+
+    if (results.length === 0){
+        html.innerHTML = '<p>No results found.<p>'
+    }else{
+        results.forEach(workout => {
+            const date = new Date(workout.date).toLocaleDateString();
+            html.innerHTML += `
+                <div class="workout-card">
+                    <h3>${workout.name}</h3>
+                    <p>${date}</p>
+                    <button onclick="toggleWorkoutDetails(${workout.id})">View Details</button>
+                    <div id="details-${workout.id}" style="display:none"></div>
+                </div>`
+            }
+        );
+    }
+}
+
+async function displayExerciseResults(results){
+    const container = document.getElementById('search-results');
+    let html = '';
+
+    if (results.length === 0){
+        html = '<p>No results found.<p>'
+    }else{
+        for (const exercise of results){
+            html += `<h4>${exercise.name}</h4>`;
+
+            //fetch sets
+            const sets = await getSetsByExercise(exercise.id);
+
+            sets.forEach(set => {
+                html += `<p>Set ${set.setNum}:
+                    ${set.reps} reps @ ${set.weight} lbs</p>`;
+            });
+        }
+    }
+    container.innerHTML = html;
 }

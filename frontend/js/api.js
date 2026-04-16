@@ -112,8 +112,8 @@ async function searchByWorkout(name, userId){
     return response.json();
 }
 
-async function searchByExercise(exerciseName, userId){
-    const response = await fetch(`${BASE_URL}/workouts/search?exercise=${exerciseName}&userId=${userId}`);
+async function searchByExercise(name, userId){
+    const response = await fetch(`${BASE_URL}/exercises/search?name=${name}&userId=${userId}`);
     return response.json();
 }
 

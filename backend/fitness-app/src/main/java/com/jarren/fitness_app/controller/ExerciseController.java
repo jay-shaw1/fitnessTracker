@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import com.jarren.fitness_app.repo.ExerciseRepository;
 import com.jarren.fitness_app.model.Exercise;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -27,6 +28,18 @@ public class ExerciseController {
     @GetMapping("/workout/{workoutId}")
     public List<Exercise> getExercisesByWorkout(@PathVariable Long workoutId) {
         return exerciseRepo.findByWorkoutId(workoutId);
+    }
+
+    @GetMapping("/search")
+    public List<Exercise> searchExercises(
+        @RequestParam(required = false) String name,
+        @RequestParam Long userId) {
+        
+        if (name != null){
+            return exerciseRepo.findByWorkout_UserIdAndNameContainingIgnoreCase(userId, name);
+        }
+
+        return new ArrayList<>();
     }
 
 }
