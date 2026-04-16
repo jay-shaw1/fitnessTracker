@@ -207,3 +207,36 @@ async function toggleWorkoutDetails(workoutId){
     detailsDiv.innerHTML = html;
     detailsDiv.style.display = 'block';
 }
+
+document.getElementById('search-filter').addEventListener('change', function(){
+    const input = document.getElementById('search-input');
+    if (this.value === 'date'){
+        input.type = 'date';
+    }else{
+        input.type = 'text';
+        input.placeholder = 'Search...';
+    }
+});
+
+async function search(){
+    const filter = document.getElementById('search-filter').value;
+    const query = document.getElementById('search-input').value;
+    const userId = sessionStorage.getItem('userId');
+
+    if (!query) return;
+
+    query = query.toLowerCase();
+    let results = [];
+
+    if (filter === 'workout'){
+        results = await searchByWorkout(query, userId);
+        displaySearchResults(results);
+    } else if (filter === 'exercise'){
+        results = await searchByExercise(query, userId);
+        displaySearchResults(results);
+    } else if (filter === 'date'){
+        results = await searchByDate(query, userId);
+        displaySearchResults(results);
+    }
+
+}

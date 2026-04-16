@@ -106,3 +106,18 @@ async function getSetsByExercise(exerciseId){
     const response = await fetch(`${BASE_URL}/sets/exercise/${exerciseId}`);
     return response.json();
 }
+
+async function searchByWorkout(name, userId){
+    const response = await fetch(`${BASE_URL}/workouts/search?name=${name}&userId=${userId}`);
+    return response.json();
+}
+
+async function searchByExercise(exerciseName, userId){
+    const response = await fetch(`${BASE_URL}/workouts/search?exercise=${exerciseName}&userId=${userId}`);
+    return response.json();
+}
+
+async function searchByDate(date, userId){
+    const response = await fetch(`${BASE_URL}/workouts/search?date=${date}&userId=${userId}`);
+    return response.json();
+}

@@ -13,6 +13,16 @@
         </nav>
         <main>
             <div id="welcome-message"></div>
+            <div class="search-container">
+                <select id="search-filter">
+                    <option value="workout">Workout Name</option>
+                    <option value="exercise">Exercise Name</option>
+                    <option value="date">Date</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Search...">
+                <button onclick="search()">Search</button>
+            </div>
+            <div id="search-results"></div>
             <div id="workout-list"></div>
 
         </main>
