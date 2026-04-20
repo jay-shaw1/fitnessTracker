@@ -14,7 +14,8 @@ async function createUser(username, email, password){
 }
 
 async function loginUser(email, password){
-    const response = await fetch(`${BASE_URL}/users/login`,
+    try{
+        const response = await fetch(`${BASE_URL}/users/login`,
         {
             method: 'POST',
             headers: {
@@ -22,10 +23,15 @@ async function loginUser(email, password){
             },
             body: JSON.stringify({ email, password })
         });
-    if (response.ok){
+
+        if (!response.ok){
+            throw new Error(`Login failed.`);
+        }
+
         return response.json();
-    }else{
-        return response.text();
+
+    }catch (error){
+        console.error('loginUser error:', error);
     }
 }
 

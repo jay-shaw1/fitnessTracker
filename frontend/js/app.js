@@ -1,3 +1,13 @@
+//helper to display error/success messages
+function showMessage(elementId, text, color){
+    const element = document.getElementById(elementId);
+    
+    if (element){
+        element.textContent = text;
+        element.style.color = color;
+    }
+}
+
 async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
@@ -19,19 +29,16 @@ async function signIn(){
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const result = await loginUser(email, password);
-    const message = document.getElementById('message');
+    try{
+        const result = await loginUser(email,password);
 
-    if (result.id){
         sessionStorage.setItem('userId', result.id);
         sessionStorage.setItem('username', result.username);
-        message.textContent = 'Welcome Back!';
-        message.style.color = 'green';
-        window.location.href = '../index.html'
+        showMessage('message', `Welcome Back ${result.username.value}!`, 'green');
+        setTimeout(() => window.location.href = '../dashboard.html', 1000);
 
-    }else{
-        message.textContent = 'Invalid Email or Password.';
-        message.style.color = 'red';
+    } catch (error) {
+        showMessage('message', 'Invalid Email or Password. Please try again.', 'red');
     }
 }
 
