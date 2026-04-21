@@ -86,14 +86,15 @@ async function saveExercise(name, sets, workoutId){
         }
 
         return response.json();
-        
+
     } catch (error) {
         console.error('saveExercise error: ', error);
     }
 }
 
 async function saveSetApi(exerciseId, setNum, reps, weight, intensityLevel){
-    const response = await fetch(`${BASE_URL}/sets`,
+    try{
+        const response = await fetch(`${BASE_URL}/sets`,
         {
             method : 'POST',
             headers: {
@@ -102,21 +103,38 @@ async function saveSetApi(exerciseId, setNum, reps, weight, intensityLevel){
             body: JSON.stringify({ setNum, reps, weight, intensityLevel,
                 exercise : { id : exerciseId }
             })
+        });
+
+        if (!response.ok){
+            throw new Error('Unable to save set.');
         }
-    );
-    return response.json();
+
+        return response.json();
+
+    } catch (error) {
+        console.error('saveSetApi error: ', error);
+    }
 }
 
 async function endWorkout(workoutId){
-    const response = await fetch(`${BASE_URL}/workouts/${workoutId}/complete`,
+    try{
+        const response = await fetch(`${BASE_URL}/workouts/${workoutId}/complete`,
         {
             method : 'PATCH',
             headers : {
                 'Content-Type' : 'application/json'
             }
+        });
+
+        if (!response.ok){
+            throw new Error('unable to end workout.');
         }
-    );
-    return response.json();
+
+        return response.json();
+        
+    } catch (error) {
+        console.error('endWorkout error: ', error);
+    }
 }
 
 async function getWorkoutHistory(userId){

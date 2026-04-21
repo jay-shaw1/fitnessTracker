@@ -142,14 +142,24 @@ async function saveSet(action){
         const reps = document.getElementById(`rep-${i}`).value;
         const weight = document.getElementById(`weight-${i}`).value;
         const intensity = document.getElementById(`intensity-${i}`).value;
-        await saveSetApi(exerciseId, i, reps, weight, intensity);
+
+        try {
+            await saveSetApi(exerciseId, i, reps, weight, intensity);
+        } catch (error) {
+            showMessage('message', `Unable to save set ${i}`, 'red');
+        }
     }
 
     if (action == 'exercise'){
         window.location.href = 'exercise.html';
     }else{
-        await endWorkout(workoutId);
-        window.location.href = 'dashboard.html';
+
+        try{
+            await endWorkout(workoutId);
+            window.location.href = 'dashboard.html';
+        } catch (error) {
+            showMessage('message', 'Unable to save workout. Try again.', 'red');
+        }
     }
 
 }
