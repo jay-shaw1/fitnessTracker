@@ -61,14 +61,15 @@ async function saveWorkout(userId, name, time, status){
         }
 
         return response.json();
-        
+
     } catch (error) {
         console.error('saveWorkout error: ', error);
     }
 }
 
 async function saveExercise(name, sets, workoutId){
-    const response = await fetch(`${BASE_URL}/exercises`,
+    try{
+        const response = await fetch(`${BASE_URL}/exercises`,
         {
             method : 'POST',
             headers : {
@@ -78,9 +79,17 @@ async function saveExercise(name, sets, workoutId){
                 setNum : sets,
                 workout : { id : workoutId }
             })
+        });
+
+        if (!response.ok){
+            throw new Error('Unable to save exercise.');
         }
-    );
-    return response.json();
+
+        return response.json();
+        
+    } catch (error) {
+        console.error('saveExercise error: ', error);
+    }
 }
 
 async function saveSetApi(exerciseId, setNum, reps, weight, intensityLevel){

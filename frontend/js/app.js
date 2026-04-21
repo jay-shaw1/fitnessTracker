@@ -95,14 +95,19 @@ async function createExercise(){
     const sets = document.getElementById('sets-num').value;
     const workoutId = sessionStorage.getItem('workoutId');
 
-    const result = await saveExercise(exerciseName, sets, workoutId);
+    try{
 
-    if (result.id){
+        const result = await saveExercise(exerciseName, sets, workoutId);
         sessionStorage.setItem('exerciseName', exerciseName);
         sessionStorage.setItem('sets', sets);
         sessionStorage.setItem('exerciseId', result.id);
-        window.location.href = 'sets.html';
+        showMessage('message', 'Exercise created successfully.', 'green');
+        setTimeout(() => window.location.href = 'sets.html', 1000);
+
+    } catch (error) {
+        showMessage('message', 'There was an error creating the exercise.', 'red');
     }
+
 }
 
 function loadSetsPage(){
