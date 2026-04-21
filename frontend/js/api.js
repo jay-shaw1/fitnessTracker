@@ -16,7 +16,7 @@ async function createUser(username, email, password){
         }
         return response.json();
 
-    } catch(error) {
+    } catch (error) {
         console.error('createUser error: ', error);
     }
 }
@@ -38,13 +38,14 @@ async function loginUser(email, password){
 
         return response.json();
 
-    }catch (error){
+    } catch (error) {
         console.error('loginUser error:', error);
     }
 }
 
 async function saveWorkout(userId, name, time, status){
-    const response = await fetch(`${BASE_URL}/workouts`,
+    try{
+        const response = await fetch(`${BASE_URL}/workouts`,
         {
             method: 'POST',
             headers: {
@@ -53,9 +54,17 @@ async function saveWorkout(userId, name, time, status){
             body: JSON.stringify({ name, time, status,
                 user : { id : userId }
              })
+        });
+
+        if (!response.ok){
+            throw new Error('Unable to save workout.');
         }
-    );
-    return response.json();
+
+        return response.json();
+        
+    } catch (error) {
+        console.error('saveWorkout error: ', error);
+    }
 }
 
 async function saveExercise(name, sets, workoutId){

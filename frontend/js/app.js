@@ -14,6 +14,7 @@ async function signUp(){
     const password = document.getElementById('password').value;
 
     try{
+
         const result = await createUser(username, email, password);
         showMessage('message', 'Account created successfully!', 'green');
         setTimeout(() => window.location.href = 'signin.html', 1000);
@@ -28,8 +29,8 @@ async function signIn(){
     const password = document.getElementById('password').value;
 
     try{
-        const result = await loginUser(email,password);
 
+        const result = await loginUser(email,password);
         sessionStorage.setItem('userId', result.id);
         sessionStorage.setItem('username', result.username);
         showMessage('message', `Welcome Back ${result.username}!`, 'green');
@@ -55,7 +56,7 @@ function getWorkoutName(){
     const choice = document.getElementById('workout-select').value;
     const customInput = document.getElementById('custom-workout').value;
 
-    if (choice == 'other'){
+    if (choice === 'other'){
         return customInput;
     }
     return choice;
@@ -64,17 +65,20 @@ function getWorkoutName(){
 async function createWorkout(){
     const workoutName = getWorkoutName();
     const time = document.getElementById('time-select').value;
-    //const message = document.getElementById('message');
     const userId = sessionStorage.getItem('userId');
     const status = true;
 
-    const result = await saveWorkout(userId, workoutName, time, status);
+    try{
 
-    if (result.id){
+        const result = await saveWorkout(userId, workoutName, time, status);
         sessionStorage.setItem('workoutName', workoutName);
         sessionStorage.setItem('workoutId', result.id);
         sessionStorage.setItem('status', status);
-        window.location.href = 'exercise.html';
+        showMessage('message', 'Workout created successfully!', 'green');
+        setTimeout(() => window.location.href = 'exercise.html', 1000);
+
+    } catch (error) {
+        showMessage('message', 'There was an error creating the workout.', 'red');
     }
 
 }
