@@ -176,9 +176,15 @@ async function loadDashboard(){
     checkAuth();
     const userId = sessionStorage.getItem('userId');
     const username = sessionStorage.getItem('username');
-    const workouts = await getWorkoutHistory(parseInt(userId));
     const container = document.getElementById('workout-list');
     const container2 = document.getElementById('welcome-message');
+    const workouts = null;
+
+    try{
+        workouts = await getWorkoutHistory(parseInt(userId));
+    } catch (error) {
+        showMessage('message', 'Something went wrong. Try reloading the page.', 'red');
+    }
 
     container2.innerHTML = `<h2>Welcome ${username}!</h2>`;
 
@@ -201,6 +207,7 @@ async function loadDashboard(){
 
 async function toggleWorkoutDetails(workoutId){
     const detailsDiv = document.getElementById(`details-${workoutId}`);
+    const exercises = null;
 
     //Hide details if details showing
     if (detailsDiv.style.display === 'block'){
@@ -209,16 +216,25 @@ async function toggleWorkoutDetails(workoutId){
     }
 
     //fetch exercises
-    const exercises = await getExercisesByWorkout(workoutId);
+    try{
+        exercises = await getExercisesByWorkout(workoutId);
+    } catch (error) {
+        showMessage('message', 'Cannot retrieve workout details. Try again.', 'red');
+    }
 
     let html = '';
 
     for (const exercise of exercises){
+        const sets = null;
         html += `<div class="exercise-detail">
                     <h4>${exercise.name}</h4>`;
 
         //fetch sets
-        const sets = await getSetsByExercise(exercise.id);
+        try{
+            sets = await getSetsByExercise(exercise.id);
+        } catch (error) {
+            showMessage('message', 'Cannot retrieve workout details. Try again.', 'red');
+        }
 
         sets.forEach(set => {
             html += `<p>Set ${set.setNum}:
@@ -257,14 +273,26 @@ async function search(){
     let results = [];
 
     if (filter === 'workout'){
-        results = await searchByWorkout(query, userId);
-        displayWorkoutResults(results);
+        try{
+            results = await searchByWorkout(query, userId);
+            displayWorkoutResults(results);
+        } catch(error){
+            showMessage('message', 'Search failed. Try again.', 'red');
+        }
     } else if (filter === 'exercise'){
-        results = await searchByExercise(query, userId);
-        displayExerciseResults(results);
+        try{
+            results = await searchByExercise(query, userId);
+            displayWorkoutResults(results);
+        } catch(error){
+            showMessage('message', 'Search failed. Try again.', 'red');
+        }
     } else if (filter === 'date'){
-        results = await searchByDate(query, userId);
-        displayWorkoutResults(results);
+        try{
+            results = await searchByDate(query, userId);
+            displayWorkoutResults(results);
+        } catch(error){
+            showMessage('message', 'Search failed. Try again.', 'red');
+        }
     }
 }
 
@@ -296,10 +324,15 @@ async function displayExerciseResults(results){
         html = '<p>No results found.<p>'
     }else{
         for (const exercise of results){
+            const sets = null;
             html += `<h4>${exercise.name}</h4>`;
 
             //fetch sets
-            const sets = await getSetsByExercise(exercise.id);
+            try {
+                sets = await getSetsByExercise(exercise.id);
+            } catch (error) {
+                showMessage('message', 'Cannot display exercise results. Try again.', 'red');
+            }
 
             sets.forEach(set => {
                 html += `<p>Set ${set.setNum}:

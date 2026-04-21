@@ -127,7 +127,7 @@ async function endWorkout(workoutId){
         });
 
         if (!response.ok){
-            throw new Error('unable to end workout.');
+            throw new Error('Unable to end workout.');
         }
 
         return response.json();
@@ -138,36 +138,79 @@ async function endWorkout(workoutId){
 }
 
 async function getWorkoutHistory(userId){
-    const response = await fetch(`${BASE_URL}/workouts/users/${userId}`);
-    return response.json();
+    try{
+        const response = await fetch(`${BASE_URL}/workouts/users/${userId}`);
+        if (!response.ok){
+            throw new Error('Unable to get workout history.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('getWorkoutHistory error: ', error);
+    }
 }
 
+//Not used in app.js
 async function getWorkout(workoutId){
     const response = await fetch(`${BASE_URL}/workouts/${workoutId}`)
     return response.json();
 }
 
 async function getExercisesByWorkout(workoutId){
-    const response = await fetch(`${BASE_URL}/exercises/workout/${workoutId}`);
-    return response.json();
+    try{
+        const response = await fetch(`${BASE_URL}/exercises/workout/${workoutId}`);
+        if (!response.ok){
+            throw new Error('Cannot get exercises.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('getExercisesByWorkout error: ', error);
+    }
 }
 
 async function getSetsByExercise(exerciseId){
-    const response = await fetch(`${BASE_URL}/sets/exercise/${exerciseId}`);
-    return response.json();
+    try{
+        const response = await fetch(`${BASE_URL}/sets/exercise/${exerciseId}`);
+        if (!response.ok){
+            throw new Error('Cannot get sets.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('getSetsByExercise error: ', error);
+    }
 }
 
 async function searchByWorkout(name, userId){
-    const response = await fetch(`${BASE_URL}/workouts/search?name=${name}&userId=${userId}`);
-    return response.json();
+    try{
+        const response = await fetch(`${BASE_URL}/workouts/search?name=${name}&userId=${userId}`);
+        if(!response.ok){
+            throw new Error('Search failed.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('searchByWorkout error: ', error);
+    }
 }
 
 async function searchByExercise(name, userId){
-    const response = await fetch(`${BASE_URL}/exercises/search?name=${name}&userId=${userId}`);
-    return response.json();
+    try{
+        const response = await fetch(`${BASE_URL}/exercises/search?name=${name}&userId=${userId}`);
+        if(!response.ok){
+            throw new Error('Search failed.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('searchByExercise error: ', error);
+    }
 }
 
 async function searchByDate(date, userId){
-    const response = await fetch(`${BASE_URL}/workouts/search?date=${date}&userId=${userId}`);
-    return response.json();
+    try{
+        const response = await fetch(`${BASE_URL}/workouts/search?date=${date}&userId=${userId}`);
+        if(!response.ok){
+            throw new Error('Search failed.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('searchByDate error: ', error);
+    }
 }
