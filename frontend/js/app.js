@@ -13,16 +13,14 @@ async function signUp(){
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const result = await createUser(username, email, password);
-    const message = document.getElementById('message');
+    try{
+        const result = await createUser(username, email, password);
+        showMessage('message', 'Account created successfully!', 'green');
+        setTimeout(() => window.location.href = 'signin.html', 1000);
 
-    if (result.id){
-        message.textContent = 'You have successfully signed up!';
-        message.style.color = 'green';
-    }else{
-        message.textContent = 'Something went wrong. Try again.';
-        message.style.color = 'red';
-    }  
+    } catch (error) {
+        showMessage('message', 'Something went wrong. Try again.', 'red');
+    } 
 }
 
 async function signIn(){
@@ -34,8 +32,8 @@ async function signIn(){
 
         sessionStorage.setItem('userId', result.id);
         sessionStorage.setItem('username', result.username);
-        showMessage('message', `Welcome Back ${result.username.value}!`, 'green');
-        setTimeout(() => window.location.href = '../dashboard.html', 1000);
+        showMessage('message', `Welcome Back ${result.username}!`, 'green');
+        setTimeout(() => window.location.href = 'dashboard.html', 1000);
 
     } catch (error) {
         showMessage('message', 'Invalid Email or Password. Please try again.', 'red');

@@ -1,16 +1,24 @@
 const BASE_URL = "http://localhost:8080/api" //Store root to backend
 
 async function createUser(username, email, password){
-    const response = await fetch(`${BASE_URL}/users`,
+    try{
+        const response = await fetch(`${BASE_URL}/users`,
         {
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
             },
             body : JSON.stringify({ username, email, password })
+        });
+
+        if (!response.ok){
+            throw new Error('Sign up failed.');
         }
-    );
-    return response.json();
+        return response.json();
+
+    } catch(error) {
+        console.error('createUser error: ', error);
+    }
 }
 
 async function loginUser(email, password){
