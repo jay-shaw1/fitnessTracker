@@ -8,10 +8,28 @@ function showMessage(elementId, text, color){
     }
 }
 
+function validateSignUp(username, email, password){
+    if (!username || username.trim() === ''){
+        return 'Username is required.';
+    }
+    if (!email || !email.includes('@')){
+        return 'Please enter a valid email.';
+    }
+    if (!password || password.length < 6){
+        return 'Password must be at least 6 characters.';
+    }
+    return null; //no error
+}
+
 async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const error = validateSignUp(username, email, password);
+    if (error){
+        showMessage('message', error, 'red');
+        return;
+    }
 
     try{
 
