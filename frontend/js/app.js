@@ -77,6 +77,12 @@ async function createWorkout(){
     const time = document.getElementById('time-select').value;
     const userId = sessionStorage.getItem('userId');
     const status = true;
+    const error = validateCreateWorkout(workoutName);
+
+    if (error){
+        showMessage('message', error, 'red');
+        return;
+    }
 
     try{
 
@@ -95,18 +101,21 @@ async function createWorkout(){
 
 function loadExercisePage(){
     const workoutName = sessionStorage.getItem('workoutName');
-
     document.getElementById('workout-title').textContent = workoutName;
-
 }
 
 async function createExercise(){
     const exerciseName = document.getElementById('exercise-name').value;
     const sets = document.getElementById('sets-num').value;
     const workoutId = sessionStorage.getItem('workoutId');
+    const error = validateCreateExercise(exerciseName, sets);
+
+    if (error){
+        showMessage('message', error, 'red');
+        return;
+    }
 
     try{
-
         const result = await saveExercise(exerciseName, sets, workoutId);
         sessionStorage.setItem('exerciseName', exerciseName);
         sessionStorage.setItem('sets', sets);
@@ -152,6 +161,12 @@ async function saveSet(action){
         const reps = document.getElementById(`rep-${i}`).value;
         const weight = document.getElementById(`weight-${i}`).value;
         const intensity = document.getElementById(`intensity-${i}`).value;
+        const error = validateSaveSet(reps, weight, intensity);
+
+        if (error) {
+            showMessage('message', error, 'red');
+            return;
+        }
 
         try {
             await saveSetApi(exerciseId, i, reps, weight, intensity);
@@ -188,7 +203,7 @@ async function loadDashboard(){
     const username = sessionStorage.getItem('username');
     const container = document.getElementById('workout-list');
     const container2 = document.getElementById('welcome-message');
-    const workouts = null;
+    let workouts = [];
 
     try{
         workouts = await getWorkoutHistory(parseInt(userId));
@@ -217,7 +232,7 @@ async function loadDashboard(){
 
 async function toggleWorkoutDetails(workoutId){
     const detailsDiv = document.getElementById(`details-${workoutId}`);
-    const exercises = null;
+    let exercises = [];
 
     //Hide details if details showing
     if (detailsDiv.style.display === 'block'){
@@ -235,7 +250,7 @@ async function toggleWorkoutDetails(workoutId){
     let html = '';
 
     for (const exercise of exercises){
-        const sets = null;
+        let sets = [];
         html += `<div class="exercise-detail">
                     <h4>${exercise.name}</h4>`;
 
@@ -375,5 +390,25 @@ function validateLogin(email, password){
     if (!password){
         return 'Please enter your password.'
     }
+    return null;
+}
+
+function validateCreateWorkout(name){
+    if (!name || name.trim() === ''){
+        return 'You must enter a split.';
+    }
+    return null;
+}
+
+function validateCreateExercise(name, sets){
+    if (!name || name.trim() === '') return 'You must enter an exercise name.';
+    if (!sets || sets <= 0 || sets >= 9) return 'The number of sets must be between 1 and 8.';
+    return null;
+}
+
+function validateSaveSet(reps, weight, intensity){
+    if (!reps || reps <= 0) return 'You must fill in reps for each set.';
+    if (!weight || weight <= 0) return 'You must fill in weight for each set.';
+    if (!intensity || intensity <= 0 || intensity >= 11) return 'Intensity level must be between 1 and 10.';
     return null;
 }
