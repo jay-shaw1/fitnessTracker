@@ -1,10 +1,9 @@
 package com.jarren.fitness_app.model;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -14,7 +13,9 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Workout name is required.")
     private String name;
+    
     private int time;
     private boolean status;
     private LocalDateTime date;

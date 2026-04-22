@@ -1,6 +1,7 @@
 package com.jarren.fitness_app.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "sets")
@@ -10,8 +11,17 @@ public class ExerciseSet {
     private Long id;
 
     private int setNum;
+
+    @NotBlank(message = "You must fill in reps for each set.")
+    @Size(min = 1, message = "You must fill in reps for each set.")
     private int reps;
+
+    @NotBlank(message = "You must fill in weight for each set.")
+    @Size(min = 1, message = "You must fill in weight for each set.")
     private double weight;
+
+    @NotBlank(message = "You must fill in intensity level for each set.")
+    @Size(min = 1, max = 10, message = "Intensity level must be between 1 and 10")
     private int intensityLevel;
 
     @ManyToOne
