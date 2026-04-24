@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import jakarta.validation.*;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,8 +24,8 @@ public class SetController {
     private SetRepository setRepo;
 
     @PostMapping
-    public ExerciseSet CreateSet(@RequestBody ExerciseSet set) {
-        return setRepo.save(set);
+    public ResponseEntity<?> CreateSet(@Valid @RequestBody ExerciseSet set) {
+        return ResponseEntity.ok(setRepo.save(set));
     }
 
     @GetMapping

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "exercises")
@@ -21,6 +20,7 @@ public class Exercise {
     @Size(min = 1, max = 8, message = "The number of sets must be between 1 and 8.")
     private int setNum;
 
+    @NotNull(message = "Workout is required.")
     @ManyToOne
     @JoinColumn(name = "workout_id")
     @JsonBackReference

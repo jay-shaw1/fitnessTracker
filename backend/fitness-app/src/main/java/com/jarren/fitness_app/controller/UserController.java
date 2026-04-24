@@ -3,7 +3,7 @@ package com.jarren.fitness_app.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
+import jakarta.validation.*;
 import com.jarren.fitness_app.repo.UserRepository;
 import com.jarren.fitness_app.model.User;
 import java.util.List;
@@ -18,8 +18,8 @@ public class UserController {
 
     @PostMapping
     //creates data
-    public User createUser(@RequestBody User user){
-        return userRepo.save(user);
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user){
+        return ResponseEntity.ok(userRepo.save(user));
     }
 
     @GetMapping

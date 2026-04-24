@@ -24,6 +24,7 @@ public class ExerciseSet {
     @Size(min = 1, max = 10, message = "Intensity level must be between 1 and 10")
     private int intensityLevel;
 
+    @NotNull(message = "Exercise is required.")
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     @JsonBackReference

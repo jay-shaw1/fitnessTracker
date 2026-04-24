@@ -20,6 +20,7 @@ public class Workout {
     private boolean status;
     private LocalDateTime date;
 
+    @NotNull(message = "User is required.")
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.validation.*;
+import org.springframework.http.ResponseEntity;
 
 
 
@@ -21,9 +23,9 @@ public class WorkoutController {
     private WorkoutRepository workoutRepo;
 
     @PostMapping
-    public Workout createWorkout(@RequestBody Workout workout){
+    public ResponseEntity<?> createWorkout(@Valid @RequestBody Workout workout){
         workout.setDate(LocalDateTime.now());
-        return workoutRepo.save(workout);
+        return ResponseEntity.ok(workoutRepo.save(workout));
     }
 
     @GetMapping("/users/{userId}")

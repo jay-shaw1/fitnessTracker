@@ -6,6 +6,9 @@ import com.jarren.fitness_app.model.Exercise;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import jakarta.validation.*;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -16,8 +19,8 @@ public class ExerciseController {
     private ExerciseRepository exerciseRepo;
 
     @PostMapping
-    public Exercise createExercise(@RequestBody Exercise exercise){
-        return exerciseRepo.save(exercise);
+    public ResponseEntity<?> createExercise(@Valid @RequestBody Exercise exercise){
+        return ResponseEntity.ok(exerciseRepo.save(exercise));
     }
 
     @GetMapping
