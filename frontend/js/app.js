@@ -8,6 +8,14 @@ function showMessage(elementId, text, color){
     }
 }
 
+//helper to handle expired/missing tokens
+function requireAuth(){
+    const token = sessionStorage.getItem('token');
+    if (!token){
+        window.location.href = 'signin.html'
+    }
+}
+
 async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
