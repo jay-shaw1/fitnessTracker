@@ -148,6 +148,7 @@ async function getWorkoutHistory(userId){
         return response.json();
     } catch (error) {
         console.error('getWorkoutHistory error: ', error);
+        return [];
     }
 }
 
