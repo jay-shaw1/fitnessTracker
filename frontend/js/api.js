@@ -57,9 +57,7 @@ async function saveWorkout(userId, name, time, status){
         const response = await fetch(`${BASE_URL}/workouts`,
         {
             method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
+            headers: authHeaders(),
             body: JSON.stringify({ name, time, status,
                 user : { id : userId }
              })
@@ -81,9 +79,7 @@ async function saveExercise(name, sets, workoutId){
         const response = await fetch(`${BASE_URL}/exercises`,
         {
             method : 'POST',
-            headers : {
-                'Content-Type' : 'application/json'
-            },
+            headers : authHeaders(),
             body : JSON.stringify({ name, 
                 setNum : sets,
                 workout : { id : workoutId }
@@ -106,9 +102,7 @@ async function saveSetApi(exerciseId, setNum, reps, weight, intensityLevel){
         const response = await fetch(`${BASE_URL}/sets`,
         {
             method : 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
+            headers: authHeaders(),
             body: JSON.stringify({ setNum, reps, weight, intensityLevel,
                 exercise : { id : exerciseId }
             })
@@ -130,9 +124,7 @@ async function endWorkout(workoutId){
         const response = await fetch(`${BASE_URL}/workouts/${workoutId}/complete`,
         {
             method : 'PATCH',
-            headers : {
-                'Content-Type' : 'application/json'
-            }
+            headers : authHeaders()
         });
 
         if (!response.ok){
@@ -148,10 +140,11 @@ async function endWorkout(workoutId){
 
 async function getWorkoutHistory(userId){
     try{
-        const response = await fetch(`${BASE_URL}/workouts/users/${userId}`);
-        if (!response.ok){
-            throw new Error('Unable to get workout history.');
-        }
+        const response = await fetch(`${BASE_URL}/workouts/users/${userId}`, {
+            headers: authHeaders()
+        });
+
+        if (!response.ok) throw new Error('Unable to get workout history.');
         return response.json();
     } catch (error) {
         console.error('getWorkoutHistory error: ', error);
@@ -166,10 +159,11 @@ async function getWorkout(workoutId){
 
 async function getExercisesByWorkout(workoutId){
     try{
-        const response = await fetch(`${BASE_URL}/exercises/workout/${workoutId}`);
-        if (!response.ok){
-            throw new Error('Cannot get exercises.');
-        }
+        const response = await fetch(`${BASE_URL}/exercises/workout/${workoutId}`, {
+            headers: authHeaders()
+        });
+
+        if (!response.ok) throw new Error('Cannot get exercises.');
         return response.json();
     } catch (error) {
         console.error('getExercisesByWorkout error: ', error);
@@ -178,10 +172,11 @@ async function getExercisesByWorkout(workoutId){
 
 async function getSetsByExercise(exerciseId){
     try{
-        const response = await fetch(`${BASE_URL}/sets/exercise/${exerciseId}`);
-        if (!response.ok){
-            throw new Error('Cannot get sets.');
-        }
+        const response = await fetch(`${BASE_URL}/sets/exercise/${exerciseId}`, {
+            headers: authHeaders()
+        });
+
+        if (!response.ok) throw new Error('Cannot get sets.');
         return response.json();
     } catch (error) {
         console.error('getSetsByExercise error: ', error);
@@ -190,10 +185,11 @@ async function getSetsByExercise(exerciseId){
 
 async function searchByWorkout(name, userId){
     try{
-        const response = await fetch(`${BASE_URL}/workouts/search?name=${name}&userId=${userId}`);
-        if(!response.ok){
-            throw new Error('Search failed.');
-        }
+        const response = await fetch(`${BASE_URL}/workouts/search?name=${name}&userId=${userId}`, {
+            headers: authHeaders()
+        });
+
+        if(!response.ok) throw new Error('Search failed.');
         return response.json();
     } catch (error) {
         console.error('searchByWorkout error: ', error);
@@ -202,10 +198,11 @@ async function searchByWorkout(name, userId){
 
 async function searchByExercise(name, userId){
     try{
-        const response = await fetch(`${BASE_URL}/exercises/search?name=${name}&userId=${userId}`);
-        if(!response.ok){
-            throw new Error('Search failed.');
-        }
+        const response = await fetch(`${BASE_URL}/exercises/search?name=${name}&userId=${userId}`, {
+            headers: authHeaders()
+        });
+
+        if(!response.ok) throw new Error('Search failed.');
         return response.json();
     } catch (error) {
         console.error('searchByExercise error: ', error);
@@ -214,10 +211,11 @@ async function searchByExercise(name, userId){
 
 async function searchByDate(date, userId){
     try{
-        const response = await fetch(`${BASE_URL}/workouts/search?date=${date}&userId=${userId}`);
-        if(!response.ok){
-            throw new Error('Search failed.');
-        }
+        const response = await fetch(`${BASE_URL}/workouts/search?date=${date}&userId=${userId}`, {
+            headers: authHeaders()
+        });
+        
+        if(!response.ok) throw new Error('Search failed.')
         return response.json();
     } catch (error) {
         console.error('searchByDate error: ', error);
