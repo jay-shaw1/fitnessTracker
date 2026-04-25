@@ -41,10 +41,16 @@ async function signIn(){
 
     try{
         const result = await loginUser(email,password);
-        sessionStorage.setItem('userId', result.id);
+
+        if (result.token){
+            sessionStorage.setItem('token', result.token);
+        sessionStorage.setItem('userId', result.userId);
         sessionStorage.setItem('username', result.username);
         showMessage('message', `Welcome Back ${result.username}!`, 'green');
         setTimeout(() => window.location.href = 'dashboard.html', 1000);
+        }else{
+            showMessage('message', 'Invalid credentials. Please try again.', 'red');
+        }
 
     } catch (error) {
         showMessage('message', 'Invalid Email or Password. Please try again.', 'red');

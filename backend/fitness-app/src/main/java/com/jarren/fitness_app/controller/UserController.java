@@ -1,7 +1,6 @@
 package com.jarren.fitness_app.controller;
 
 import org.springframework.web.bind.annotation.*;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import jakarta.validation.*;
