@@ -1,5 +1,14 @@
 const BASE_URL = "http://localhost:8080/api" //Store root to backend
 
+//helper to build headers with token
+function authHeaders(){
+    const token = sessionStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
+
 async function createUser(username, email, password){
     try{
         const response = await fetch(`${BASE_URL}/users`,
