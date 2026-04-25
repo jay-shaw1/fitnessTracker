@@ -16,6 +16,13 @@ function requireAuth(){
     }
 }
 
+//check if current page needs authorization
+const protectedPages = ['dashboard.html', 'workout.html', 'exercise.html', 'sets.html'];
+const currentPage = window.location.pathname.split('/').pop();
+if (protectedPages.includes(currentPage)){
+    requireAuth();
+}
+
 async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
@@ -52,10 +59,10 @@ async function signIn(){
 
         if (result.token){
             sessionStorage.setItem('token', result.token);
-        sessionStorage.setItem('userId', result.userId);
-        sessionStorage.setItem('username', result.username);
-        showMessage('message', `Welcome Back ${result.username}!`, 'green');
-        setTimeout(() => window.location.href = 'dashboard.html', 1000);
+            sessionStorage.setItem('userId', result.userId);
+            sessionStorage.setItem('username', result.username);
+            showMessage('message', `Welcome Back ${result.username}!`, 'green');
+            setTimeout(() => window.location.href = 'dashboard.html', 1000);
         }else{
             showMessage('message', 'Invalid credentials. Please try again.', 'red');
         }
@@ -203,16 +210,8 @@ async function saveSet(action){
 
 }
 
-//temporary frontend check for dev
-function checkAuth(){
-    const userId = sessionStorage.getItem('userId');
-    if (!userId){
-        window.location.href = 'signin.html'
-    }
-}
 
 async function loadDashboard(){
-    checkAuth();
     const userId = sessionStorage.getItem('userId');
     const username = sessionStorage.getItem('username');
     const container = document.getElementById('workout-list');
