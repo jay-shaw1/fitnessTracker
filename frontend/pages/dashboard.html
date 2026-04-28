@@ -14,6 +14,7 @@
         <main>
             <div id="welcome-message"></div>
             <button onclick="window.location.href='workout.html'">Workout</button>
+            <button onclick="logout()">Logout</button>
             <div class="search-container">
                 <select id="search-filter">
                     <option value="workout">Workout Name</option>
@@ -23,6 +24,7 @@
                 <input type="text" id="search-input" placeholder="Search...">
                 <button onclick="search()">Search</button>
             </div>
+            <p id="message"></p>
             <div id="search-results"></div>
             <div id="workout-list"></div>
 

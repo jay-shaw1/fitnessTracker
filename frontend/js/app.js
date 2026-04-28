@@ -23,6 +23,13 @@ if (protectedPages.includes(currentPage)){
     requireAuth();
 }
 
+//clear session storage when the user logs out
+function logout(){
+    sessionStorage.clear();
+    showMessage('message', 'You are being logged out.', 'green');
+    setTimeout(() => window.location.href = '../index.html', 1000);
+}
+
 async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
@@ -320,7 +327,7 @@ async function search(){
     } else if (filter === 'exercise'){
         try{
             results = await searchByExercise(query, userId);
-            displayWorkoutResults(results);
+            displayExerciseResults(results);
         } catch(error){
             showMessage('message', 'Search failed. Try again.', 'red');
         }
@@ -362,7 +369,7 @@ async function displayExerciseResults(results){
         html = '<p>No results found.<p>'
     }else{
         for (const exercise of results){
-            const sets = null;
+            let sets = [];
             html += `<h4>${exercise.name}</h4>`;
 
             //fetch sets
