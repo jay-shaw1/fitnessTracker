@@ -12,16 +12,14 @@ public class ExerciseSet {
 
     private int setNum;
 
-    @NotBlank(message = "You must fill in reps for each set.")
-    @Size(min = 1, message = "You must fill in reps for each set.")
+    @Min(value = 1, message = "You must have at least 1 rep for each set.")
     private int reps;
 
-    @NotBlank(message = "You must fill in weight for each set.")
-    @Size(min = 1, message = "You must fill in weight for each set.")
+    @Min(value = 1, message = "You must fill in weight for each set.")
     private double weight;
 
-    @NotBlank(message = "You must fill in intensity level for each set.")
-    @Size(min = 1, max = 10, message = "Intensity level must be between 1 and 10")
+    @Min(value = 1, message = "Intensity level must be between 1 and 10")
+    @Max(value = 10, message = "Intensity level must be between 1 and 10")
     private int intensityLevel;
 
     @NotNull(message = "Exercise is required.")

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.*;
 
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/exercises")
 public class ExerciseController {

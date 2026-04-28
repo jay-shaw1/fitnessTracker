@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.*;
 import org.springframework.http.ResponseEntity;
 
-
-
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/workouts")
 public class WorkoutController {

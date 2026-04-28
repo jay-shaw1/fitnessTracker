@@ -16,8 +16,8 @@ public class Exercise {
     @NotBlank(message = "Exercise name is required.")
     private String name;
 
-    @NotBlank(message = "Number of sets is required.")
-    @Size(min = 1, max = 8, message = "The number of sets must be between 1 and 8.")
+    @Min(value = 1, message = "You must have at least 1 set.")
+    @Max(value = 8, message = "You can't have more than 8 sets.")
     private int setNum;
 
     @NotNull(message = "Workout is required.")
@@ -37,8 +37,8 @@ public class Exercise {
     public String getName(){return name;}
     public void setName(String name){this.name = name;}
 
-    public int getSetsNum(){return setNum;}
-    public void setSetsNum(int setNum){this.setNum = setNum;}
+    public int getSetNum(){return setNum;}
+    public void setSetNum(int setNum){this.setNum = setNum;}
 
     public Workout getWorkout(){return workout;}
     public void setWorkout(Workout workout){this.workout = workout;}
