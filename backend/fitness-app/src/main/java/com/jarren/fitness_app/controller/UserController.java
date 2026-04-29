@@ -3,6 +3,7 @@ package com.jarren.fitness_app.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.validation.*;
 import com.jarren.fitness_app.repo.UserRepository;
 import com.jarren.fitness_app.model.User;
@@ -19,9 +20,13 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @PostMapping
     //creates data
     public ResponseEntity<?> createUser(@Valid @RequestBody User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return ResponseEntity.ok(userRepo.save(user));
     }
 
@@ -44,7 +49,7 @@ public class UserController {
 
         User user = users.get(0);
 
-        if (user.getPassword().equals(loginRequest.getPassword())){ //check if passwords match
+        if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){ //check if passwords match w/ encoder
             String token = jwtUtil.generateToken(user.getUsername());
 
             Map<String, Object> response = new HashMap<>();
