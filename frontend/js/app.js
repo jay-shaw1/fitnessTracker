@@ -12,7 +12,7 @@ function showMessage(elementId, text, color){
 function requireAuth(){
     const token = sessionStorage.getItem('token');
     if (!token){
-        window.location.href = 'signin.html'
+        window.location.href = 'signin.html';
     }
 }
 
@@ -204,12 +204,14 @@ async function saveSet(action){
     }
 
     if (action == 'exercise'){
-        window.location.href = 'exercise.html';
+        showMessage('message', 'Your sets for this exercise have been saved.', 'green');
+        setTimeout(() => window.location.href = 'exercise.html', 1000);
     }else{
 
         try{
             await endWorkout(workoutId);
-            window.location.href = 'dashboard.html';
+            showMessage('message', 'Congrats! You completed a workout!', 'green');
+            setTimeout(() => window.location.href = 'dashboard.html', 1500);
         } catch (error) {
             showMessage('message', 'Unable to save workout. Try again.', 'red');
         }
@@ -234,7 +236,7 @@ async function loadDashboard(){
     container2.innerHTML = `<h2>Welcome ${username}!</h2>`;
 
     if (workouts.length === 0){
-        container.innerHTML = '<p>No workouts logged yet. Start your first one!</p>';
+        container.innerHTML = '<p>No completed workouts logged yet. Start your first one!</p>';
         return;
     }
 
