@@ -34,6 +34,7 @@ async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+
     const error = validateSignUp(username, email, password);
     if (error){
         showMessage('message', error, 'red');
@@ -47,7 +48,8 @@ async function signUp(){
         setTimeout(() => window.location.href = 'signin.html', 1000);
 
     } catch (error) {
-        showMessage('message', 'Something went wrong. Try again.', 'red');
+        showMessage('message', error.message, 'red');
+        return;
     } 
 }
 

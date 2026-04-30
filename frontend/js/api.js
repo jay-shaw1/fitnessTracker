@@ -21,12 +21,13 @@ async function createUser(username, email, password){
         });
 
         if (!response.ok){
-            throw new Error('Sign up failed.');
+            throw new Error(await response.text());
         }
         return response.json();
 
     } catch (error) {
         console.error('createUser error: ', error);
+        throw error;
     }
 }
 

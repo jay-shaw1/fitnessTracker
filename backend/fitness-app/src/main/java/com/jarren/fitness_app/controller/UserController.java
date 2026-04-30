@@ -26,6 +26,9 @@ public class UserController {
     @PostMapping
     //creates data
     public ResponseEntity<?> createUser(@Valid @RequestBody User user){
+        if (userRepo.existsByEmail(user.getEmail())){
+            return ResponseEntity.status(409).body("An account with this email already exists.");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return ResponseEntity.ok(userRepo.save(user));
     }
