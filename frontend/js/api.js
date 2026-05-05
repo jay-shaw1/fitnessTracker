@@ -75,14 +75,13 @@ async function saveWorkout(userId, name, time, status){
     }
 }
 
-async function saveExercise(name, sets, workoutId){
+async function saveExercise(name, workoutId){
     try{
         const response = await fetch(`${BASE_URL}/exercises`,
         {
             method : 'POST',
             headers : authHeaders(),
             body : JSON.stringify({ name, 
-                setNum : sets,
                 workout : { id : workoutId }
             })
         });

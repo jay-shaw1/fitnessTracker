@@ -136,9 +136,8 @@ function loadExercisePage(){
 
 async function createExercise(){
     const exerciseName = document.getElementById('exercise-name').value;
-    const sets = document.getElementById('sets-num').value;
     const workoutId = sessionStorage.getItem('workoutId');
-    const error = validateCreateExercise(exerciseName, sets);
+    const error = validateCreateExercise(exerciseName);
 
     if (error){
         showMessage('message', error, 'red');
@@ -146,9 +145,8 @@ async function createExercise(){
     }
 
     try{
-        const result = await saveExercise(exerciseName, sets, workoutId);
+        const result = await saveExercise(exerciseName, workoutId);
         sessionStorage.setItem('exerciseName', exerciseName);
-        sessionStorage.setItem('sets', sets);
         sessionStorage.setItem('exerciseId', result.id);
         showMessage('message', 'Exercise created successfully.', 'green');
         setTimeout(() => window.location.href = 'sets.html', 1000);
@@ -159,17 +157,14 @@ async function createExercise(){
 
 }
 
-let setNum = 1;
-let totalSets = 0;
+let currentSet = 1;
 
 function loadSetsPage(){
     const workoutName = sessionStorage.getItem('workoutName');
     const exerciseName = sessionStorage.getItem('exerciseName');
-    totalSets = parseInt(sessionStorage.getItem('sets'));
-
     document.getElementById('workout-title').textContent = workoutName;
     document.getElementById('exercise-title').textContent = exerciseName;
-    document.getElementById('sets-counter').textContent = `Set ${setNum} of ${totalSets}`;  
+    document.getElementById('sets-counter').textContent = `Set ${currentSet}`;  
 }
 
 async function saveSet(){
@@ -178,35 +173,36 @@ async function saveSet(){
     const exerciseId = sessionStorage.getItem('exerciseId');
     const error = validateSaveSet(reps, weight);
     
-    console.log(setNum, reps, weight, exerciseId);
     if (error){
         showMessage('message', error, 'red');
         return;
     }
 
     try{
-        await saveSetApi(setNum, reps, weight, exerciseId);
-        showMessage('message', `Set ${setNum} saved!`, 'green');
-        setNum++;
+        await saveSetApi(currentSet, reps, weight, exerciseId);
+        showMessage('message', `Set ${currentSet} saved!`, 'green');
 
-        if (setNum > totalSets){
-            document.getElementById('set-input').style.display = 'none';
-            document.getElementById('message').textContent = 'All sets complete!';
-            document.getElementById('finish-buttons').style.display = 'block';
-        }else{
-            document.getElementById('sets-counter').textContent = `Set ${setNum} of ${totalSets}`;
-            document.getElementById('reps').value = '';
-            document.getElementById('weight').value = '';
-        }
+        currentSet++;
+        document.getElementById('sets-counter').textContent = `Set ${currentSet}`;
+        document.getElementById('reps').value = '';
+        document.getElementById('weight').value = '';
+
     } catch (error) {
-        showMessage('message', 'Unable to save set. Try again.', 'red');
+        showMessage('message', 'Failed to save set. Try again.', 'red');
     }
 
 }
 
 async function saveAndContinue(action){
+    if (currentSet === 1){
+        showMessage('message', 'Please save at least one set for this exercise.', 'red');
+        return;
+    }
+
     if (action == 'exercise'){
-        window.location.href = 'exercise.html';
+        showMessage('message', `${currentSet - 1} sets have been saved.`);
+        currentSet = 1;
+        setTimeout(() => window.location.href = 'exercise.html', 1500);
     }else{
         const workoutId = sessionStorage.getItem('workoutId');
 
@@ -429,9 +425,8 @@ function validateCreateWorkout(name){
     return null;
 }
 
-function validateCreateExercise(name, sets){
+function validateCreateExercise(name){
     if (!name || name.trim() === '') return 'You must enter an exercise name.';
-    if (!sets || sets <= 0 || sets >= 9) return 'The number of sets must be between 1 and 8.';
     return null;
 }
 
