@@ -104,7 +104,6 @@ function getWorkoutName(){
 
 async function createWorkout(){
     const workoutName = getWorkoutName();
-    const time = document.getElementById('time-select').value;
     const userId = sessionStorage.getItem('userId');
     const status = true;
     const error = validateCreateWorkout(workoutName);
@@ -116,7 +115,7 @@ async function createWorkout(){
 
     try{
 
-        const result = await saveWorkout(userId, workoutName, time, status);
+        const result = await saveWorkout(userId, workoutName, status);
         sessionStorage.setItem('workoutName', workoutName);
         sessionStorage.setItem('workoutId', result.id);
         sessionStorage.setItem('status', status);

@@ -53,13 +53,13 @@ async function loginUser(email, password){
     }
 }
 
-async function saveWorkout(userId, name, time, status){
+async function saveWorkout(userId, name, status){
     try{
         const response = await fetch(`${BASE_URL}/workouts`,
         {
             method: 'POST',
             headers: authHeaders(),
-            body: JSON.stringify({ name, time, status,
+            body: JSON.stringify({ name, status,
                 user : { id : userId }
              })
         });
