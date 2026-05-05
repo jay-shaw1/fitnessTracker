@@ -98,25 +98,26 @@ async function saveExercise(name, sets, workoutId){
     }
 }
 
-async function saveSetApi(exerciseId, setNum, reps, weight, intensityLevel){
+async function saveSetApi(setNum, reps, weight, exerciseId){
     try{
         const response = await fetch(`${BASE_URL}/sets`,
         {
             method : 'POST',
             headers: authHeaders(),
-            body: JSON.stringify({ setNum, reps, weight, intensityLevel,
+            body: JSON.stringify({ setNum, reps, weight,
                 exercise : { id : exerciseId }
             })
         });
 
         if (!response.ok){
-            throw new Error('Unable to save set.');
+            throw new Error(await response.text());
         }
 
         return response.json();
 
     } catch (error) {
         console.error('saveSetApi error: ', error);
+        throw error;
     }
 }
 

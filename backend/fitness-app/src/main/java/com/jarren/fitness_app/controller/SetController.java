@@ -21,7 +21,7 @@ public class SetController {
     private SetRepository setRepo;
 
     @PostMapping
-    public ResponseEntity<?> CreateSet(@Valid @RequestBody ExerciseSet set) {
+    public ResponseEntity<?> createSet(@Valid @RequestBody ExerciseSet set) {
         return ResponseEntity.ok(setRepo.save(set));
     }
 

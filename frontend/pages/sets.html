@@ -18,11 +18,19 @@
         <main>
             <h2 id="workout-title"></h2>
             <h3 id="exercise-title"></h3>
-            <div id="sets-container"></div>
-            <button onclick="saveSet('end')">End Workout</button>
-            <button onclick="saveSet('exercise')">Choose Another Exercise</button>
-
+            <h4 id="sets-counter">Set 1</h4>
+            <div id="set-input">
+                <input type="number" id="reps" placeholder="Reps">
+                <input type="number" id="weight" placeholder="Weight (lbs)">
+                <button onclick="saveSet()">Save Set</button>
+            </div>
+            
             <p id="message"></p>
+
+            <div id="finish-buttons" style="display:none">
+                <button onclick="saveAndContinue('end')">End Workout</button>
+                <button onclick="saveAndContinue('exercise')">Add Another Exercise</button>
+            </div>
         </main>
 
         <script src="../js/api.js"></script>

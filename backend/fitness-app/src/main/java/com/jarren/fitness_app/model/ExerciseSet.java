@@ -18,10 +18,6 @@ public class ExerciseSet {
     @Min(value = 1, message = "You must fill in weight for each set.")
     private double weight;
 
-    @Min(value = 1, message = "Intensity level must be between 1 and 10")
-    @Max(value = 10, message = "Intensity level must be between 1 and 10")
-    private int intensityLevel;
-
     @NotNull(message = "Exercise is required.")
     @ManyToOne
     @JoinColumn(name = "exercise_id")
@@ -37,9 +33,6 @@ public class ExerciseSet {
 
     public double getWeight(){return weight;}
     public void setWeight(double weight){this.weight = weight;}
-
-    public int getIntensityLevel(){return intensityLevel;}
-    public void setIntensityLevel(int intensityLevel){this.intensityLevel = intensityLevel;}
 
     public Exercise getExercise(){return exercise;}
     public void setExercise(Exercise exercise){this.exercise = exercise;}

@@ -159,56 +159,56 @@ async function createExercise(){
 
 }
 
+let setNum = 1;
+let totalSets = 0;
+
 function loadSetsPage(){
     const workoutName = sessionStorage.getItem('workoutName');
     const exerciseName = sessionStorage.getItem('exerciseName');
-    const sets = parseInt(sessionStorage.getItem('sets'));
+    totalSets = parseInt(sessionStorage.getItem('sets'));
 
     document.getElementById('workout-title').textContent = workoutName;
     document.getElementById('exercise-title').textContent = exerciseName;
-
-    const container = document.getElementById('sets-container');
-
-    for (let i = 1; i <= sets; i++){
-        container.innerHTML += `
-            <div class="set-row">
-                <label>Set ${i}</label>
-                <input type="number" id="rep-${i}" placeholder="Reps">
-                <input type="number" id="weight-${i}" placeholder="Weight (lbs)">
-                <input type="number" id="intensity-${i}" placeholder="Intensity Level">
-            </div>`;
-    }
-
-    
+    document.getElementById('sets-counter').textContent = `Set ${setNum} of ${totalSets}`;  
 }
 
-async function saveSet(action){
-    const sets = parseInt(sessionStorage.getItem('sets'));
+async function saveSet(){
+    const reps = document.getElementById('reps').value;
+    const weight = document.getElementById('weight').value;
     const exerciseId = sessionStorage.getItem('exerciseId');
-    const workoutId = sessionStorage.getItem('workoutId');
-
-    for (let i = 1; i <= sets; i++){
-        const reps = document.getElementById(`rep-${i}`).value;
-        const weight = document.getElementById(`weight-${i}`).value;
-        const intensity = document.getElementById(`intensity-${i}`).value;
-        const error = validateSaveSet(reps, weight, intensity);
-
-        if (error) {
-            showMessage('message', error, 'red');
-            return;
-        }
-
-        try {
-            await saveSetApi(exerciseId, i, reps, weight, intensity);
-        } catch (error) {
-            showMessage('message', `Unable to save set ${i}`, 'red');
-        }
+    const error = validateSaveSet(reps, weight);
+    
+    console.log(setNum, reps, weight, exerciseId);
+    if (error){
+        showMessage('message', error, 'red');
+        return;
     }
 
+    try{
+        await saveSetApi(setNum, reps, weight, exerciseId);
+        showMessage('message', `Set ${setNum} saved!`, 'green');
+        setNum++;
+
+        if (setNum > totalSets){
+            document.getElementById('set-input').style.display = 'none';
+            document.getElementById('message').textContent = 'All sets complete!';
+            document.getElementById('finish-buttons').style.display = 'block';
+        }else{
+            document.getElementById('sets-counter').textContent = `Set ${setNum} of ${totalSets}`;
+            document.getElementById('reps').value = '';
+            document.getElementById('weight').value = '';
+        }
+    } catch (error) {
+        showMessage('message', 'Unable to save set. Try again.', 'red');
+    }
+
+}
+
+async function saveAndContinue(action){
     if (action == 'exercise'){
-        showMessage('message', 'Your sets for this exercise have been saved.', 'green');
-        setTimeout(() => window.location.href = 'exercise.html', 1000);
+        window.location.href = 'exercise.html';
     }else{
+        const workoutId = sessionStorage.getItem('workoutId');
 
         try{
             await endWorkout(workoutId);
@@ -218,7 +218,6 @@ async function saveSet(action){
             showMessage('message', 'Unable to save workout. Try again.', 'red');
         }
     }
-
 }
 
 //helper to display dates of workouts
@@ -436,9 +435,8 @@ function validateCreateExercise(name, sets){
     return null;
 }
 
-function validateSaveSet(reps, weight, intensity){
-    if (!reps || reps <= 0) return 'You must fill in reps for each set.';
-    if (!weight || weight <= 0) return 'You must fill in weight for each set.';
-    if (!intensity || intensity <= 0 || intensity >= 11) return 'Intensity level must be between 1 and 10.';
+function validateSaveSet(reps, weight){
+    if (!reps || reps <= 0) return 'Number of reps must be at least 1.';
+    if (!weight || weight <= 0) return 'You must fill in the weight.';
     return null;
 }
