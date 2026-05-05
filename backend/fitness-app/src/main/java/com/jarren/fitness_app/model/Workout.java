@@ -2,7 +2,7 @@ package com.jarren.fitness_app.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -17,8 +17,8 @@ public class Workout {
     private String name;
     
     private int time;
-    private boolean status;
-    private LocalDateTime date;
+    private Boolean status;
+    private LocalDate date;
 
     @NotNull(message = "User is required.")
     @ManyToOne
@@ -39,8 +39,8 @@ public class Workout {
     public int getTime(){return time;}
     public void setTime(int time){this.time = time;}
 
-    public boolean getStatus(){return status;}
-    public void setStatus(boolean status){this.status = status;}
+    public Boolean getStatus(){return status;}
+    public void setStatus(Boolean status){this.status = status;}
 
     public User getUser(){return user;}
     public void setUser(User user){this.user = user;}
@@ -48,6 +48,6 @@ public class Workout {
     public List<Exercise> getExercises(){return exercises;}
     public void setExercises(List<Exercise> exercises){this.exercises = exercises;}
 
-    public LocalDateTime getDate(){return date;}
-    public void setDate(LocalDateTime date){this.date = date;}
+    public LocalDate getDate(){return date;}
+    public void setDate(LocalDate date){this.date = date;}
 }

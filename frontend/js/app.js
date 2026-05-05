@@ -221,6 +221,12 @@ async function saveSet(action){
 
 }
 
+//helper to display dates of workouts
+function formatDate(dateString) {
+    const [year, month, day] = dateString.split('-');
+    return `${month}/${day}/${year}`;
+}
+
 
 async function loadDashboard(){
     const userId = sessionStorage.getItem('userId');
@@ -243,7 +249,7 @@ async function loadDashboard(){
     }
 
     workouts.forEach(workout => {
-        const date = new Date(workout.date).toLocaleDateString(); //formats date to user's locale
+        const date = formatDate(workout.date);
         container.innerHTML += `
         <div class="workout-card">
             <h3>${workout.name}</h3>
@@ -352,7 +358,7 @@ function displayWorkoutResults(results){
         html.innerHTML = '<p>No results found.<p>'
     }else{
         results.forEach(workout => {
-            const date = new Date(workout.date).toLocaleDateString();
+            const date = formatDate(workout.date);
             html.innerHTML += `
                 <div class="workout-card">
                     <h3>${workout.name}</h3>

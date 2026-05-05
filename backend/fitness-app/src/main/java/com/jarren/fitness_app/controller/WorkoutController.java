@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.jarren.fitness_app.repo.WorkoutRepository;
 import com.jarren.fitness_app.model.Workout;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.LocalDate;
 import java.util.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +21,13 @@ public class WorkoutController {
 
     @PostMapping
     public ResponseEntity<?> createWorkout(@Valid @RequestBody Workout workout){
-        workout.setDate(LocalDateTime.now());
+        workout.setDate(LocalDate.now(ZoneId.of("America/New_York")));
         return ResponseEntity.ok(workoutRepo.save(workout));
     }
 
     @GetMapping("/users/{userId}")
     public List<Workout> getWorkoutsByUser(@PathVariable Long userId){
-        return workoutRepo.findByUser_IdAndStatus(userId, false);
+        return workoutRepo.findByUser_IdAndStatusOrderByDateDesc(userId, false);
     }
 
     @GetMapping("/{id}")
@@ -50,13 +50,10 @@ public class WorkoutController {
         @RequestParam Long userId) {
         
         if (name != null){
-            return workoutRepo.findByUserIdAndNameContainingIgnoreCase(userId, name);
+            return workoutRepo.findByUserIdAndNameContainingIgnoreCaseAndStatus(userId, name, false);
         } else if (date != null){
 
-            //check full day so user doesn't have to search for exact time
-            LocalDateTime start = LocalDate.parse(date).atStartOfDay();
-            LocalDateTime end = LocalDate.parse(date).atTime(23, 59, 59);
-            return workoutRepo.findByUserIdAndDateBetween(userId, start, end);
+            return workoutRepo.findByUserIdAndDateAndStatus(userId, LocalDate.parse(date), false);
         }
 
         return new ArrayList<>();
