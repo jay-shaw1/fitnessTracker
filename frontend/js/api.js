@@ -223,3 +223,34 @@ async function searchByDate(date, userId){
         console.error('searchByDate error: ', error);
     }
 }
+
+async function getInProgressWorkout(userId){
+    try{
+        const response = await fetch(`${BASE_URL}/workouts/in-progress/${userId}`,
+            { headers : authHeaders() }
+        );
+
+        if (!response.ok) throw new Error();
+
+        if (response.status === 204) return null;
+
+        return response.json();
+    } catch (error) {
+        console.error('getInProgressWorkout error: ', error);
+    }
+}
+
+async function cancelWorkoutApi(workoutId){
+    try{
+        const response = await fetch(`${BASE_URL}/workouts/${workoutId}/cancel`, {
+            method: 'PATCH',
+            headers: authHeaders()
+        });
+
+        if (!response.ok) throw new Error();
+
+        return response.json();
+    } catch (error) {
+        console.log('cancelWorkoutApi error: ', error);
+    }
+}

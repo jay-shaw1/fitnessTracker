@@ -58,4 +58,29 @@ public class WorkoutController {
 
         return new ArrayList<>();
     }
+
+    @GetMapping("/in-progress/{userId}")
+    public ResponseEntity<?> getInProgressWorkout(@PathVariable Long userId){
+        List<Workout> workouts = workoutRepo.findByUserIdAndStatus(userId, "in_progress");
+
+        if (workouts.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(workouts.get(0));
+    }
+
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<Workout> cancelWorkout(@PathVariable Long id){
+        Optional<Workout> optional = workoutRepo.findById(id);
+
+        if (optional.isEmpty()){
+            return ResponseEntity.status(404).build();
+        }
+
+        Workout workout = optional.get();
+        workout.setStatus("cancelled");
+        workoutRepo.save(workout);
+        return ResponseEntity.ok(workout);
+    }
 }

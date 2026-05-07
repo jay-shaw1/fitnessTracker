@@ -227,8 +227,26 @@ async function loadDashboard(){
     const username = sessionStorage.getItem('username');
     const container = document.getElementById('workout-list');
     const container2 = document.getElementById('welcome-message');
-    let workouts = [];
+    const resumeSection = document.getElementById('resume-section');
+    const startSection = document.getElementById('start-section');
 
+    let inProgress = null;
+    try{
+        inProgress = await checkInProgressWorkout();
+    } catch (error) {
+        showMessage('message', error, 'red');
+    }
+
+    if (inProgress){
+        resumeSection.style.display = 'block';
+        startSection.style.display = 'none';
+        document.getElementById('resume-workout-name').textContent = `Resume: ${inProgress.name}`;
+    }else{
+        resumeSection.style.display = 'none';
+        startSection.style.display = 'block';
+    }
+
+    let workouts = [];
     try{
         workouts = await getWorkoutHistory(parseInt(userId));
     } catch (error) {
@@ -241,6 +259,8 @@ async function loadDashboard(){
         container.innerHTML = '<p>No completed workouts logged yet. Start your first one!</p>';
         return;
     }
+
+    container.innerHTML = '';
 
     workouts.forEach(workout => {
         const date = formatDate(workout.date);
@@ -390,6 +410,44 @@ async function displayExerciseResults(results){
         }
     }
     container.innerHTML = html;
+}
+
+async function checkInProgressWorkout(){
+    const userId = sessionStorage.getItem('userId');
+    let workout = null;
+
+    try{
+        workout = await getInProgressWorkout(userId);
+    } catch (error) {
+        showMessage('message', 'Workout progress check failed.', 'red');
+    }
+
+    if (workout && workout.id){
+        sessionStorage.setItem('workoutId', workout.id);
+        sessionStorage.setItem('workoutName', workout.name);
+        return workout;
+    }
+    return null;
+}
+
+function resumeWorkout(){
+    window.location.href = 'exercise.html';
+}
+
+async function cancelWorkout(){
+    const confirmed = confirm('Are you sure you want to cancel this workout? All progress will be lost.');
+    if (!confirmed) return;
+
+    const workoutId = sessionStorage.getItem('workoutId');
+
+    try{
+        await cancelWorkoutApi(workoutId);
+        sessionStorage.removeItem('workoutId');
+        sessionStorage.removeItem('workoutName');
+        await loadDashboard();
+    } catch (error) {
+        showMessage('message', 'Failed to cancel workout.', 'red');
+    }
 }
 
 //Validation helpers

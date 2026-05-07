@@ -6,26 +6,44 @@
         <link rel="stylesheet" href="../style.css">
     </head>
     <body onload="loadDashboard()">
+
         <nav>
             <h1>Fitness Track</h1>
             <a href="../index.html">Home ></a>
             <a href="dashboard.html"><b>Dashboard</b></a>
         </nav>
+
         <main>
             <div id="welcome-message"></div>
-            <button onclick="window.location.href='workout.html'">Workout</button>
+
+            <div id="resume-section" style="display:none">
+                <p id="resume-workout-name"></p>
+                <button onclick="resumeWorkout()">Resume Workout</button>
+                <button onclick="cancelWorkout()">Cancel Workout</button>
+            </div>
+            
+            <div id="start-section">
+                <button onclick="window.location.href='workout.html'">Start New Workout</button>
+            </div>
+    
             <button onclick="logout()">Logout</button>
+
             <div class="search-container">
+                
                 <select id="search-filter">
                     <option value="workout">Workout Name</option>
                     <option value="exercise">Exercise Name</option>
                     <option value="date">Date</option>
                 </select>
+
                 <input type="text" id="search-input" placeholder="Search...">
                 <button onclick="search()">Search</button>
             </div>
+
             <p id="message"></p>
+
             <div id="search-results"></div>
+
             <div id="workout-list"></div>
 
         </main>
