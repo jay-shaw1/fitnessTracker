@@ -105,7 +105,7 @@ function getWorkoutName(){
 async function createWorkout(){
     const workoutName = getWorkoutName();
     const userId = sessionStorage.getItem('userId');
-    const status = true;
+    const status = "in_progress";
     const error = validateCreateWorkout(workoutName);
 
     if (error){

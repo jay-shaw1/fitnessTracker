@@ -16,7 +16,7 @@ public class Workout {
     @NotBlank(message = "Workout name is required.")
     private String name;
     
-    private Boolean status;
+    private String status;
     private LocalDate date;
 
     @NotNull(message = "User is required.")
@@ -35,8 +35,8 @@ public class Workout {
     public String getName(){return name;}
     public void setName(String name){this.name = name;}
 
-    public Boolean getStatus(){return status;}
-    public void setStatus(Boolean status){this.status = status;}
+    public String getStatus(){return status;}
+    public void setStatus(String status){this.status = status;}
 
     public User getUser(){return user;}
     public void setUser(User user){this.user = user;}

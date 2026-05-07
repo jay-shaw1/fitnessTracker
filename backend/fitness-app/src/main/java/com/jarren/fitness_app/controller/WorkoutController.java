@@ -27,7 +27,7 @@ public class WorkoutController {
 
     @GetMapping("/users/{userId}")
     public List<Workout> getWorkoutsByUser(@PathVariable Long userId){
-        return workoutRepo.findByUser_IdAndStatusOrderByDateDesc(userId, false);
+        return workoutRepo.findByUser_IdAndStatusOrderByDateDesc(userId, "completed");
     }
 
     @GetMapping("/{id}")
@@ -39,7 +39,7 @@ public class WorkoutController {
     @PatchMapping("/{id}/complete")
     public Workout updateStatus(@PathVariable Long id){
         Workout workout = workoutRepo.findById(id).get();
-        workout.setStatus(false);
+        workout.setStatus("completed");
         return workoutRepo.save(workout);
     }
 
@@ -50,10 +50,10 @@ public class WorkoutController {
         @RequestParam Long userId) {
         
         if (name != null){
-            return workoutRepo.findByUserIdAndNameContainingIgnoreCaseAndStatus(userId, name, false);
+            return workoutRepo.findByUserIdAndNameContainingIgnoreCaseAndStatus(userId, name, "completed");
         } else if (date != null){
 
-            return workoutRepo.findByUserIdAndDateAndStatus(userId, LocalDate.parse(date), false);
+            return workoutRepo.findByUserIdAndDateAndStatus(userId, LocalDate.parse(date), "completed");
         }
 
         return new ArrayList<>();

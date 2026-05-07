@@ -6,7 +6,7 @@ import java.util.List;
 import java.time.LocalDate;
 
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
-    List<Workout> findByUser_IdAndStatusOrderByDateDesc(Long userId, Boolean status);
-    List<Workout> findByUserIdAndNameContainingIgnoreCaseAndStatus(Long userId, String name, Boolean status);
-    List<Workout> findByUserIdAndDateAndStatus(Long userId, LocalDate date, Boolean status);
+    List<Workout> findByUser_IdAndStatusOrderByDateDesc(Long userId, String status);
+    List<Workout> findByUserIdAndNameContainingIgnoreCaseAndStatus(Long userId, String name, String status);
+    List<Workout> findByUserIdAndDateAndStatus(Long userId, LocalDate date, String status);
 }
