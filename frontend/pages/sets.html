@@ -9,10 +9,8 @@
     <body onload="loadSetsPage()">
         <nav>
             <h1>Fitness Track</h1>
-            <a href="../index.html">Home ></a>
-            <a href="workout.html">Workout ></a>
-            <a href="exercise.html">Exercise ></a>
-            <a href="sets.html"><b>Sets</b></a>
+            <a href="../index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
         </nav>
 
         <main>
@@ -25,13 +23,13 @@
                 <input type="number" id="weight" placeholder="Weight (lbs)">
                 <button onclick="saveSet()">Save Set</button>
             </div>
-            
-            <p id="message"></p>
 
             <div id="finish-buttons">
                 <button onclick="saveAndContinue('end')">End Workout</button>
                 <button onclick="saveAndContinue('exercise')">Add Another Exercise</button>
             </div>
+
+            <p id="message"></p>
         </main>
 
         <script src="../js/api.js"></script>

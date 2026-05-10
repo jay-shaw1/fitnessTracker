@@ -3,6 +3,7 @@ function showMessage(elementId, text, color){
     const element = document.getElementById(elementId);
     
     if (element){
+        element.style.display = 'block';
         element.textContent = text;
         element.style.color = color;
     }
@@ -170,6 +171,7 @@ async function saveSet(){
     const reps = document.getElementById('reps').value;
     const weight = document.getElementById('weight').value;
     const exerciseId = sessionStorage.getItem('exerciseId');
+    const message = document.getElementById('message');
     const error = validateSaveSet(reps, weight);
     
     if (error){
@@ -180,6 +182,7 @@ async function saveSet(){
     try{
         await saveSetApi(currentSet, reps, weight, exerciseId);
         showMessage('message', `Set ${currentSet} saved!`, 'green');
+        setTimeout(() => {message.style.display = 'none'}, 3000);
 
         currentSet++;
         document.getElementById('sets-counter').textContent = `Set ${currentSet}`;
