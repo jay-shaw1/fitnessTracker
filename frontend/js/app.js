@@ -381,7 +381,7 @@ function displayWorkoutResults(results){
                     <h3>${workout.name}</h3>
                     <p>${date}</p>
                     <button onclick="toggleWorkoutDetails(${workout.id})">View Details</button>
-                    <div id="details-${workout.id}" style="display:none"></div>
+                    <div id="details-${workout.id}" class="workout-details" style="display:none"></div>
                 </div>`
             }
         );
@@ -397,7 +397,9 @@ async function displayExerciseResults(results){
     }else{
         for (const exercise of results){
             let sets = [];
-            html += `<h4>${exercise.name}</h4>`;
+            html += 
+            `<div class="exercise-detail">
+                <h4>${exercise.name}</h4>`;
 
             //fetch sets
             try {
@@ -410,6 +412,7 @@ async function displayExerciseResults(results){
                 html += `<p>Set ${set.setNum}:
                     ${set.reps} reps @ ${set.weight} lbs</p>`;
             });
+            html += '</div>';
         }
     }
     container.innerHTML = html;

@@ -15,12 +15,14 @@
 
         <main>
             <h2 id="workout-title"></h2>
-            <h3 id="exercise-title"></h3>
-            <h4 id="sets-counter">Set 1</h4>
+            <h2 id="exercise-title"></h2>
+            <div id="sets-counter">Set 1</div>
 
             <div id="set-input">
-                <input type="number" id="reps" placeholder="Reps">
-                <input type="number" id="weight" placeholder="Weight (lbs)">
+                <div class="set-row">
+                    <input type="number" id="reps" placeholder="Reps">
+                    <input type="number" id="weight" placeholder="Weight (lbs)">
+                </div>
                 <button onclick="saveSet()">Save Set</button>
             </div>
 

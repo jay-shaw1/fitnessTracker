@@ -38,7 +38,7 @@ public class ExerciseController {
         @RequestParam Long userId) {
         
         if (name != null){
-            return exerciseRepo.findByWorkout_UserIdAndNameContainingIgnoreCase(userId, name);
+            return exerciseRepo.findByWorkout_UserIdAndNameContainingIgnoreCaseAndWorkout_Status(userId, name, "completed");
         }
 
         return new ArrayList<>();

@@ -153,12 +153,6 @@ async function getWorkoutHistory(userId){
     }
 }
 
-//Not used in app.js
-async function getWorkout(workoutId){
-    const response = await fetch(`${BASE_URL}/workouts/${workoutId}`)
-    return response.json();
-}
-
 async function getExercisesByWorkout(workoutId){
     try{
         const response = await fetch(`${BASE_URL}/exercises/workout/${workoutId}`, {
