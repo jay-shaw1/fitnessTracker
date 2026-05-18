@@ -140,7 +140,7 @@ nav h1::before {
 
 nav a {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;

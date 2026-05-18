@@ -26,6 +26,8 @@ if (protectedPages.includes(currentPage)){
 
 //clear session storage when the user logs out
 function logout(){
+    const confirmed = confirm('Are you sure you want to logout?');
+    if (!confirmed) return;
     sessionStorage.clear();
     showMessage('message', 'You are being logged out.', 'green');
     setTimeout(() => window.location.href = '../index.html', 1000);
