@@ -44,6 +44,15 @@ function updateNav() {
 }
 updateNav();
 
+function loadLogin(){
+    const token = sessionStorage.getItem('token');
+    if (!token) return;
+    else{
+        window.location.href = 'dashboard.html';
+    }
+
+}
+
 async function signUp(){
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
