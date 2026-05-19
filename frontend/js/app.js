@@ -29,9 +29,20 @@ function logout(){
     const confirmed = confirm('Are you sure you want to logout?');
     if (!confirmed) return;
     sessionStorage.clear();
+    const isRoot = !window.location.pathname.includes('/pages/');
     showMessage('message', 'You are being logged out.', 'green');
-    setTimeout(() => window.location.href = '../index.html', 1000);
+    setTimeout(() => window.location.href = isRoot ? 'index.html' : '../index.html', 1000);
 }
+
+//add logout button to nav bar if user logged in
+function updateNav() {
+    const token = sessionStorage.getItem('token');
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink){
+        logoutLink.style.display = token ? 'inline' : 'none';
+    }
+}
+updateNav();
 
 async function signUp(){
     const username = document.getElementById('username').value;
