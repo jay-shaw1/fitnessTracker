@@ -3,26 +3,100 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Fitness App</title>
+        <title>FitnessTrack — Log Every Rep</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="landing-page">
+
         <nav id="nav">
             <h1>Fitness Track</h1>
-            <a href="pages/signup.html">Sign Up</a>
             <a href="pages/signin.html">Sign In</a>
+            <a href="pages/dashboard.html" id="dashboard-link" style="display:none">Dashboard</a>
             <a href="#" id="logout-link" onclick="logout()" style="display:none">Logout</a>
         </nav>
-        <main>
-            <h2>Track your workouts!</h2>
-            <p>Sign Up to get started!</p>
-            <p>Sign In if you already have an account!</p>
-            <button onclick="window.location.href='pages/dashboard.html'">Dashboard</button>
 
-            <p id="message"></p>
-        </main>
+        <section class="hero">
+            <div class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                <span>Gym Tracking. Rebuilt.</span>
+            </div>
 
+            <h1 class="hero-headline">
+                Every Rep.<br>
+                Every Set.<br>
+                <em>Every PR.</em>
+            </h1>
+
+            <p class="hero-sub">
+                Stop guessing what you lifted last week.
+                FitnessTrack logs your workouts in real time —
+                exercise by exercise, set by set.
+            </p>
+
+            <div class="hero-cta">
+                <a href="pages/signup.html" class="cta-primary">Start Tracking Free</a>
+                <a href="pages/signin.html" class="cta-ghost">Already have an account →</a>
+            </div>
+
+            <div class="hero-ring hero-ring--1" aria-hidden="true"></div>
+            <div class="hero-ring hero-ring--2" aria-hidden="true"></div>
+            <div class="hero-ring hero-ring--3" aria-hidden="true"></div>
+        </section>
+
+        <div class="section-divider" aria-hidden="true">
+            <span>// FEATURES</span>
+        </div>
+
+        <section class="features">
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4M6 12h12"/>
+                    </svg>
+                </div>
+                <h3>Log In Real Time</h3>
+                <p>Record each set as you go — reps, weight, rest. No more trying to remember at the end of the session.</p>
+                <div class="feature-tag">DURING YOUR WORKOUT</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                </div>
+                <h3>Track Your Progress</h3>
+                <p>Every completed workout is saved to your history. Search by exercise, split, or date to see exactly how far you've come.</p>
+                <div class="feature-tag">YOUR HISTORY</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                        <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+                    </svg>
+                </div>
+                <h3>Never Lose a Session</h3>
+                <p>Workouts are saved progressively as you train. Close the app, lose your signal — your data stays safe.</p>
+                <div class="feature-tag">ALWAYS SAVED</div>
+            </div>
+
+        </section>
+
+        <section class="closing-cta">
+            <p class="closing-label">// READY TO START</p>
+            <h2 class="closing-headline">Your next PR starts here.</h2>
+            <a href="pages/signup.html" class="cta-primary cta-large">Create Free Account</a>
+        </section>
+
+        <footer class="landing-footer">
+            <span>2026 FitnessTrack</span>
+            <span>Built with Spring Boot &amp; Vanilla JS</span>
+        </footer>
+
+        <script src="js/api.js"></script>
         <script src="js/app.js"></script>
     </body>
-
 </html>

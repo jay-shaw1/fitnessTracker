@@ -38,8 +38,12 @@ function logout(){
 function updateNav() {
     const token = sessionStorage.getItem('token');
     const logoutLink = document.getElementById('logout-link');
+    const dashLink = document.getElementById('dashboard-link');
     if (logoutLink){
         logoutLink.style.display = token ? 'inline' : 'none';
+    }
+    if (dashLink){
+        dashLink.style.display = token ? 'inline' : 'none';
     }
 }
 updateNav();
@@ -229,6 +233,8 @@ async function saveAndContinue(action){
         setTimeout(() => window.location.href = 'exercise.html', 1500);
     }else{
         const workoutId = sessionStorage.getItem('workoutId');
+        const confirmed = confirm('Are you sure you want to end this workout?');
+        if (!confirmed) return;
 
         try{
             await endWorkout(workoutId);
