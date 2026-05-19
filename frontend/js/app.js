@@ -341,6 +341,7 @@ async function search(){
     const query = document.getElementById('search-input').value;
     const userId = sessionStorage.getItem('userId');
     document.getElementById('search-results').innerHTML = '';
+    document.getElementById('clear-search-btn').style.display = 'inline-flex';
 
     if (!query) return;
 
@@ -368,6 +369,11 @@ async function search(){
             showMessage('message', 'Search failed. Try again.', 'red');
         }
     }
+}
+
+function clearSearch() {
+    document.getElementById('search-results').innerHTML = '';
+    document.getElementById('clear-search-btn').style.display = 'none';
 }
 
 function displayWorkoutResults(results){
