@@ -160,6 +160,14 @@ function loadExercisePage(){
     document.getElementById('workout-title').textContent = workoutName;
 }
 
+// Quick-pick chip helper — fills the exercise input
+function setExercise(name) {
+    document.getElementById('exercise-name').value = name;
+    // highlight the active chip
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('chip--active'));
+    event.target.classList.add('chip--active');
+}
+
 async function createExercise(){
     const exerciseName = document.getElementById('exercise-name').value;
     const workoutId = sessionStorage.getItem('workoutId');
@@ -209,6 +217,17 @@ async function saveSet(){
         await saveSetApi(currentSet, reps, weight, exerciseId);
         showMessage('message', `Set ${currentSet} saved!`, 'green');
         setTimeout(() => {message.style.display = 'none'}, 3000);
+
+        // append to live sets log
+        const log = document.getElementById('sets-log');
+        if (log) {
+            log.innerHTML += `<div class="sets-log-row">
+                <span class="log-set">SET ${currentSet}:</span>
+                <span class="log-val">${reps} <span class="log-unit"> reps</span></span>
+                <span class="log-divider">@</span>
+                <span class="log-val">${weight} <span class="log-unit">lbs</span></span>
+            </div>`;
+        }
 
         currentSet++;
         document.getElementById('sets-counter').textContent = `Set ${currentSet}`;

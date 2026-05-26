@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Exercise</title>
+        <title>Exercise — Fitness Track</title>
         <link rel="stylesheet" href="../style.css">
     </head>
 
@@ -14,10 +14,47 @@
             <a href="#" id="logout-link" onclick="logout()" style="display:none">Logout</a>
         </nav>
 
+        <div class="flow-bar">
+            <div class="flow-step flow-step--done">
+                <span class="flow-step__num">01</span>
+                <span class="flow-step__label">Choose Split</span>
+            </div>
+            <div class="flow-connector flow-connector--done"></div>
+            <div class="flow-step flow-step--active">
+                <span class="flow-step__num">02</span>
+                <span class="flow-step__label">Log Exercise</span>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <span class="flow-step__num">03</span>
+                <span class="flow-step__label">Track Sets</span>
+            </div>
+        </div>
+
         <main>
-            <h2 id="workout-title"></h2>
-            <h3>What exercise are you doing: </h3>
-            <input id="exercise-name" placeholder="Exercise">
+            
+            <p class="page-eyebrow">
+                <span class="eyebrow-dot-sm"></span>
+                <span id="workout-title"></span>
+            </p>
+
+            <h2>Choose an<br>Exercise</h2>
+
+            <p class="field-label">Exercise name:</p>
+
+            <input id="exercise-name"
+                   placeholder="e.g. Squat, Bench Press, Deadlift...">
+
+            <div class="quick-picks">
+                <span class="quick-pick-label">Quick pick:</span>
+                <button type="button" class="chip" onclick="setExercise('Squat')">Squat</button>
+                <button type="button" class="chip" onclick="setExercise('Bench Press')">Bench</button>
+                <button type="button" class="chip" onclick="setExercise('Deadlift')">Deadlift</button>
+                <button type="button" class="chip" onclick="setExercise('Push Ups')">Push Ups</button>
+                <button type="button" class="chip" onclick="setExercise('Pull Ups')">Pull Ups</button>
+                <button type="button" class="chip" onclick="setExercise('Dips')">Dips</button>
+            </div>
+
             <button onclick="createExercise()">Continue</button>
 
             <p id="message"></p>

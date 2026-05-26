@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Workout</title>
+        <title>Workout — Fitness Track</title>
         <link rel="stylesheet" href="../style.css">
     </head>
 
@@ -14,23 +14,55 @@
             <a href="#" id="logout-link" onclick="logout()" style="display:none">Logout</a>
         </nav>
 
+        <div class="flow-bar">
+            <div class="flow-step flow-step--active">
+                <span class="flow-step__num">01</span>
+                <span class="flow-step__label">Choose Split</span>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <span class="flow-step__num">02</span>
+                <span class="flow-step__label">Log Exercise</span>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <span class="flow-step__num">03</span>
+                <span class="flow-step__label">Track Sets</span>
+            </div>
+        </div>
+
         <main>
-            <h2>Enter today's workout split:</h2>
+            
+            <p class="page-eyebrow">
+                <span class="eyebrow-dot-sm"></span>
+                New Session
+            </p>
+
+            <h2>Today's<br>Workout</h2>
+
+            <p class="field-label">Select your split</p>
+
             <select id="workout-select" onchange="handleWorkoutChoice()">
-                <option value="" disabled selected>Select workout split</option>
+                <option value="" disabled selected>— Choose split —</option>
                 <option value="Leg Day">Legs</option>
                 <option value="Push Day">Push</option>
                 <option value="Pull Day">Pull</option>
                 <option value="Chest/Back Day">Chest and Back</option>
                 <option value="Shoulders/Arms Day">Shoulders and Arms</option>
-                <option value="other">Enter another split</option>
+                <option value="other">Enter custom split</option>
             </select>
 
-            <input type="text" id="custom-workout" placeholder="Enter name of split/workout" style="display:none">
-            <button onclick="createWorkout()">Continue</button>
+            <input type="text" id="custom-workout"
+                   placeholder="Name your split..."
+                   style="display:none">
+
+            <button onclick="createWorkout()">
+                Start Session
+            </button>
 
             <p id="message"></p>
         </main>
+
         <script src="../js/api.js"></script>
         <script src="../js/app.js"></script>
     </body>

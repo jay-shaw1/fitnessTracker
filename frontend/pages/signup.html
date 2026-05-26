@@ -2,27 +2,46 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <Title>Sign Up</Title>
+        <title>Sign Up — Fitness Track</title>
         <link rel="stylesheet" href="../style.css">
     </head>
-    <body>
 
+    <body>
         <nav>
             <h1>Fitness Track</h1>
             <a href="../index.html">Home</a>
         </nav>
-        
-        <main>
-            <h2>Create Account</h2>
 
-            <div id="signup-form">
-                <input type="text" id="username" placeholder="Username">
-                <input type="email" id="email" placeholder="Email">
-                <input type="password" id="password" placeholder="Password">
-                <button onclick="signUp()">Sign Up</button>
+        <main class="auth-main">
+
+            <p class="page-eyebrow">
+                <span class="eyebrow-dot-sm"></span>
+                Get Started
+            </p>
+
+            <h2>Create<br>Account</h2>
+
+            <p class="auth-sub">Your gym log starts here.</p>
+
+            <div id="signup-form" class="auth-form">
+                <div class="input-group">
+                    <label class="input-label">Username</label>
+                    <input type="text" id="username" placeholder="Choose a username">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Email</label>
+                    <input type="email" id="email" placeholder="you@email.com">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Password <span class="input-unit">(6 characters minimum)</span></label>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
+                <button onclick="signUp()">Create Account</button>
             </div>
 
-            <a href="signin.html">Already have an account?</a>
+            <a href="signin.html" class="auth-switch">
+                Already have an account? <span>Sign in →</span>
+            </a>
 
             <p id="message"></p>
         </main>

@@ -604,29 +604,20 @@ button.danger:hover {
   gap: 0.75rem;
 }
 
-/* ── Sets Page — scoreboard ──────────────────────────── */
+/* ── Sets Breadcrumb ────────────────────────────────── */
 .sets-context {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-3);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: -0.4rem;
 }
 
-.sets-context::before {
-    content: '//';
-    color: var(--orange);
-    font-family: var(--font-mono);
-    font-weight: 700;
-}
-
-.sets-workout-label {
-    color: var(--cyan);
-}
-
+/* ── Sets Page — scoreboard ──────────────────────────── */
 #sets-counter {
   font-family: var(--font-display);
   font-size: 6.5rem;
@@ -710,6 +701,9 @@ button.danger:hover {
     background: rgba(255, 64, 64, 0.06);
 }
 
+/* ── Landing ─────────────────────────────────────────── */
+main > h2:first-of-type { font-size: 5rem; line-height: 0.9; }
+main > p { max-width: 420px; }
 
 /* ── Scrollbar ───────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
@@ -725,21 +719,284 @@ button.danger:hover {
   nav { padding: 0 1rem; gap: 1rem; }
   main { padding: 2rem 1rem; gap: 1.2rem; }
   h2 { font-size: 2.5rem; }
-  #sets-counter { font-size: 4.5rem; }
+  main > h2:first-of-type { font-size: 3.2rem; }
+  #sets-counter { font-size: 5rem; }
   .search-container { flex-wrap: wrap; }
   .search-container select { width: 100%; }
   #finish-buttons { flex-direction: column; }
   .set-row { grid-template-columns: 1fr; }
 }
+/* ════════════════════════════════════════════════════════
+   WORKOUT / EXERCISE / SETS / AUTH — Page-specific styles
+   ════════════════════════════════════════════════════════ */
 
-/* ── Landing Animations ──────────────────────────────── */
+/* ── Flow Bar ────────────────────────────────────────── */
+.flow-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  height: 44px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.flow-bar::-webkit-scrollbar { display: none; }
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.flow-step__num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-3);
+  transition: var(--transition);
+}
+
+.flow-step__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  transition: var(--transition);
+}
+
+.flow-step--active .flow-step__num,
+.flow-step--active .flow-step__label {
+  color: var(--orange);
+}
+
+.flow-step--active .flow-step__num {
+  text-shadow: 0 0 8px var(--orange-glow);
+}
+
+.flow-step--done .flow-step__num,
+.flow-step--done .flow-step__label {
+  color: var(--cyan-dim);
+}
+
+.flow-connector {
+  flex: 1;
+  min-width: 2rem;
+  height: 1px;
+  background: var(--border);
+  margin: 0 0.8rem;
+}
+
+.flow-connector--done {
+  background: var(--cyan-dim);
+}
+
+/* ── Page Eyebrow ────────────────────────────────────── */
+.page-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: -0.4rem;
+}
+
+.eyebrow-dot-sm {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 6px var(--orange);
+  flex-shrink: 0;
+  animation: blink 2s ease-in-out infinite;
+}
+
+/* ── Field Labels ────────────────────────────────────── */
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: -0.8rem;
+}
+
+/* ── Input Groups ────────────────────────────────────── */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-1);
+}
+
+.input-unit {
+  color: var(--text-3);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+}
+
+/* ── Quick Pick Chips ────────────────────────────────── */
+.quick-picks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: -0.4rem;
+}
+
+.quick-pick-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-2);
+  flex-shrink: 0;
+  margin-right: 0.2rem;
+}
+
+.chip {
+  background: var(--surface-2);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+  overflow: visible;
+}
+
+.chip::before { display: none; }
+
+.chip:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: var(--orange-glow2);
+  box-shadow: none;
+  transform: none;
+}
+
+.chip--active {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: var(--orange-glow2);
+}
+
+/* ── Sets Live Log ───────────────────────────────────── */
+.sets-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+}
+
+.sets-log-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  animation: fadeUp 0.3s ease both;
+}
+
+.log-set {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--orange);
+  min-width: 3.5rem;
+}
+
+.log-val {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.log-unit {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--text-2);
+  font-weight: 400;
+}
+
+.log-divider {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-2);
+}
+
+/* ── Auth Pages ──────────────────────────────────────── */
+.auth-main {
+  max-width: 480px !important;
+}
+
+.auth-sub {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-3);
+  margin-top: -0.6rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-switch {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.auth-switch span { color: var(--orange); }
+
+.auth-switch:hover { color: var(--text); text-decoration: none; }
+.auth-switch:hover span { color: var(--cyan); }
+
+/* ── Responsive additions ────────────────────────────── */
+@media (max-width: 640px) {
+  .flow-bar { padding: 0 1rem; }
+  .flow-step__label { display: none; }
+  .quick-picks { gap: 0.4rem; }
+}
+
+/* ════════════════════════════════════════════════════════
+   LANDING PAGE — Full-width layout, independent of main
+   ════════════════════════════════════════════════════════ */
+
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes ringPulse {
   0%, 100% { opacity: 0.06; transform: translateY(-50%) scale(1); }
-  50%      { opacity: 0.12; transform: translateY(-50%) scale(1.03); }
+  50%       { opacity: 0.12; transform: translateY(-50%) scale(1.03); }
 }
 @keyframes featureReveal {
   from { opacity: 0; transform: translateY(20px); }
@@ -760,57 +1017,59 @@ button.danger:hover {
   z-index: 1;
 }
 
-/* Radial orange glow behind hero text */
 .hero::before {
   content: '';
   position: absolute;
-  top: 20%;
-  left: -10%;
-  width: 600px;
-  height: 600px;
+  top: 20%; left: -10%;
+  width: 600px; height: 600px;
   background: radial-gradient(circle, rgba(255,94,26,0.07) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Decorative weight-plate rings */
+/* ── Hero Rings wrapper (fixed to viewport) ──────────── */
+.hero-rings {
+  position: fixed;
+  top: 0; right: 0;
+  width: 500px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .hero-ring {
   position: absolute;
   border-radius: 50%;
   border: 1px solid var(--orange);
   pointer-events: none;
   animation: ringPulse 6s ease-in-out infinite;
-  z-index: 0;
 }
 
 .hero-ring--1 {
   width: 420px; height: 420px;
-  right: -80px;
-  top: 50%;
+  right: -80px; top: 50%;
   animation-delay: 0s;
   opacity: 0.06;
 }
 
 .hero-ring--2 {
   width: 280px; height: 280px;
-  right: -80px;
-  top: 50%;
-  animation-delay: 0s;
+  right: -80px; top: 50%;
+  animation-delay: 1.5s;
   opacity: 0.08;
   border-width: 2px;
 }
 
 .hero-ring--3 {
   width: 140px; height: 140px;
-  right: -80px;
-  top: 50%;
-  animation-delay: 0s;
+  right: -80px; top: 50%;
+  animation-delay: 3s;
   opacity: 0.14;
   border-width: 3px;
   border-color: var(--cyan);
 }
 
-/* Eyebrow label */
+/* ── Hero Eyebrow ────────────────────────────────────── */
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -827,15 +1086,14 @@ button.danger:hover {
 }
 
 .eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--orange);
   box-shadow: 0 0 8px var(--orange);
   animation: blink 2s ease-in-out infinite;
 }
 
-/* Headline */
+/* ── Hero Headline ───────────────────────────────────── */
 .hero-headline {
   font-family: var(--font-display);
   font-size: clamp(4.5rem, 12vw, 9rem);
@@ -850,7 +1108,6 @@ button.danger:hover {
   animation: heroFadeUp 0.6s ease 0.1s both;
 }
 
-/* The italic em — styled in orange */
 .hero-headline em {
   font-style: normal;
   color: var(--orange);
@@ -858,20 +1115,17 @@ button.danger:hover {
   display: inline-block;
 }
 
-/* Underline scratch on the accent word */
 .hero-headline em::after {
   content: '';
   position: absolute;
-  bottom: 4px;
-  left: 0;
-  width: 100%;
-  height: 4px;
+  bottom: 4px; left: 0;
+  width: 100%; height: 4px;
   background: var(--cyan);
   opacity: 0.6;
   border-radius: 2px;
 }
 
-/* Sub */
+/* ── Hero Sub ────────────────────────────────────────── */
 .hero-sub {
   font-family: var(--font-body);
   font-size: 1.05rem;
@@ -884,7 +1138,7 @@ button.danger:hover {
   animation: heroFadeUp 0.6s ease 0.2s both;
 }
 
-/* CTA group */
+/* ── Hero CTA ────────────────────────────────────────── */
 .hero-cta {
   display: flex;
   align-items: center;
@@ -895,7 +1149,6 @@ button.danger:hover {
   animation: heroFadeUp 0.6s ease 0.3s both;
 }
 
-/* Primary CTA */
 .cta-primary {
   display: inline-flex;
   align-items: center;
@@ -920,8 +1173,7 @@ button.danger:hover {
   content: '';
   position: absolute;
   top: 0; left: -100%;
-  width: 60%;
-  height: 100%;
+  width: 60%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.4s ease;
 }
@@ -940,7 +1192,6 @@ button.danger:hover {
   letter-spacing: 4px;
 }
 
-/* Ghost CTA */
 .cta-ghost {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -1020,7 +1271,6 @@ button.danger:hover {
 .feature-card:nth-child(2) { animation-delay: 0.2s; }
 .feature-card:nth-child(3) { animation-delay: 0.3s; }
 
-/* Hover: orange top sweep */
 .feature-card::before {
   content: '';
   position: absolute;
@@ -1035,10 +1285,8 @@ button.danger:hover {
 .feature-card:hover::before { transform: scaleX(1); }
 .feature-card:hover { background: var(--surface-2); }
 
-/* Icon */
 .feature-icon {
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1160,7 +1408,7 @@ button.danger:hover {
   .features { grid-template-columns: 1fr; padding: 0 1.5rem; }
   .feature-card { padding: 1.6rem 1.4rem; }
   .closing-cta { padding: 3.5rem 1.5rem 3rem; }
-  .landing-footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.2rem 1.5rem; }
+  .landing-footer { flex-direction: column; gap: 0.4rem; text-align: center; }
   .hero-cta { gap: 1rem; }
 }
 
