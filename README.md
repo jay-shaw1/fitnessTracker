@@ -34,8 +34,8 @@ This project was built as a learning exercise in full-stack development, coverin
 - Postman for API testing
 - pgAdmin for database management
 
-## Project Structure
-
+Project Structure
+```
 fitness-app/
 ├── README.md
 ├── backend/
@@ -58,14 +58,14 @@ fitness-app/
         ├── workout.html
         ├── exercise.html
         └── sets.html
-
+```
 ## Data Model
-
+```
 User
  └── Workout (status: in_progress / completed)
       └── Exercise
            └── ExerciseSet (setNumber, reps, weight)
-
+```
 ## Getting Started
 
 ### Prerequisites
@@ -78,39 +78,39 @@ User
 ### Backend Setup
 
 1. Clone the repo and navigate to the backend folder:
-
-   'cd backend/fitness-app'
-
+```
+   cd backend/fitness-app
+```
 2. Create a PostgreSQL database:
-   
-   'CREATE DATABASE fitness_db;'
-
+```
+   CREATE DATABASE fitness_db;
+```
 
 3. Set the following environment variables (or create a local `.env` / IDE run configuration):
-
-   'DB_URL=jdbc:postgresql://localhost:5432/fitness_db'
-   'DB_USERNAME=postgres'
-   'DB_PASSWORD=your_postgres_password'
-   'JWT_SECRET=a_long_random_secret_key_at_least_32_characters'
-
+```
+   DB_URL=jdbc:postgresql://localhost:5432/fitness_db
+   DB_USERNAME=postgres
+   DB_PASSWORD=your_postgres_password
+   JWT_SECRET=a_long_random_secret_key_at_least_32_characters
+```
 4. Run the application:
-
-   './mvnw spring-boot:run'
-
+```
+   ./mvnw spring-boot:run
+```
 
 ### Frontend Setup
 
 1. Navigate to the frontend folder:
-
-   'cd frontend'
-
+```
+   cd frontend
+```
 
 2. Open `index.html` with a local server (e.g. VS Code's Live Server extension). Opening it directly as a file may cause CORS issues.
 
 3. Make sure `BASE_URL` in `js/api.js` points to your running backend:
-
-   'const BASE_URL = "http://localhost:8080/api";'
-
+```
+   const BASE_URL = "http://localhost:8080/api";
+```
 
 ## API Endpoints
 
