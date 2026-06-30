@@ -1417,3 +1417,83 @@ main > p { max-width: 420px; }
   .hero-cta { flex-direction: column; align-items: flex-start; }
   .cta-primary { width: 100%; justify-content: center; }
 }
+
+/* ── Confirmation Modal ──────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeUp 0.2s ease both;
+}
+
+.modal {
+  background: var(--surface);
+  border: 2px solid var(--border-hot);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  max-width: 500px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orange top stripe matching the nav */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--orange);
+}
+
+.modal-message {
+  font-family: var(--font-display);
+  font-size: 1.63rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.modal-confirm {
+  flex: 1;
+  background: var(--orange-dim);
+  color: #0a0908;
+  border: 2px solid var(--border);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  padding: 0.7rem 1rem;
+}
+
+.modal-confirm:hover {
+  border-color: var(--orange-glow);
+  background: var(--orange);
+}
+
+.modal-cancel {
+  flex: 1;
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.modal-cancel:hover {
+  border-color: var(--text-2);
+  color: var(--text);
+  background: transparent;
+  box-shadow: none;
+}

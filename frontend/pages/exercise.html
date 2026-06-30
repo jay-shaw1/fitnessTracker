@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Exercise — Fitness Track</title>
+        <title>Exercise — JFit</title>
         <link rel="stylesheet" href="../style.css">
     </head>
 
     <body onload="loadExercisePage()">
         <nav id="nav">
-            <h1>Fitness Track</h1>
+            <h1>JFit</h1>
             <a href="../index.html">Home</a>
             <a href="dashboard.html">Dashboard</a>
             <a href="#" id="logout-link" onclick="logout()" style="display:none">Logout</a>
@@ -59,6 +59,17 @@
 
             <p id="message"></p>
         </main>
+
+        <!-- Confirmation Modal -->
+        <div id="confirm-modal" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <p class="modal-message" id="modal-message"></p>
+                <div class="modal-actions">
+                    <button class="modal-confirm" id="modal-confirm-btn">Confirm</button>
+                    <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
 
         <script src="../js/api.js"></script>
         <script src="../js/app.js"></script>

@@ -26,12 +26,12 @@ if (protectedPages.includes(currentPage)){
 
 //clear session storage when the user logs out
 function logout(){
-    const confirmed = confirm('Are you sure you want to logout?');
-    if (!confirmed) return;
-    sessionStorage.clear();
-    const isRoot = !window.location.pathname.includes('/pages/');
-    showMessage('message', 'You are being logged out.', 'green');
-    setTimeout(() => window.location.href = isRoot ? 'index.html' : '../index.html', 1000);
+    showConfirm('Are you sure you want to log out?', () => {
+        sessionStorage.clear();
+        const isRoot = !window.location.pathname.includes('/pages/');
+        window.location.href = isRoot ? 'index.html' : '../index.html';
+
+    });    
 }
 
 //add logout button to nav bar if user logged in
@@ -56,6 +56,25 @@ function loadLogin(){
     }
 
 }
+
+function showConfirm(message, onConfirm){
+    document.getElementById('modal-message').textContent = message;
+    document.getElementById('confirm-modal').style.display = 'flex';
+    document.getElementById('modal-confirm-btn').onclick = () => {
+        closeModal();
+        onConfirm();
+    };
+}
+
+function closeModal(){
+    document.getElementById('confirm-modal').style.display = 'none';
+}
+
+// Close on overlay click
+document.getElementById('confirm-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
 
 async function signUp(){
     const username = document.getElementById('username').value;
@@ -246,22 +265,21 @@ async function saveAndContinue(action){
         return;
     }
 
-    if (action == 'exercise'){
+    if (action === 'exercise'){
         showMessage('message', `${currentSet - 1} sets have been saved.`);
         currentSet = 1;
         setTimeout(() => window.location.href = 'exercise.html', 1500);
     }else{
-        const workoutId = sessionStorage.getItem('workoutId');
-        const confirmed = confirm('Are you sure you want to end this workout?');
-        if (!confirmed) return;
-
-        try{
-            await endWorkout(workoutId);
-            showMessage('message', 'Congrats! You completed a workout!', 'green');
-            setTimeout(() => window.location.href = 'dashboard.html', 1500);
-        } catch (error) {
-            showMessage('message', 'Unable to save workout. Try again.', 'red');
-        }
+        showConfirm('End workout and save your session?', async () => {
+            const workoutId = sessionStorage.getItem('workoutId');
+            try {
+                await endWorkout(workoutId);
+                showMessage('message', 'Congrats! Workout complete!', 'green');
+                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+            } catch (error) {
+                showMessage('message', 'Unable to save workout.', 'red');
+            }
+        });
     }
 }
 
@@ -494,19 +512,17 @@ function resumeWorkout(){
 }
 
 async function cancelWorkout(){
-    const confirmed = confirm('Are you sure you want to cancel this workout? All progress will be lost.');
-    if (!confirmed) return;
-
-    const workoutId = sessionStorage.getItem('workoutId');
-
-    try{
-        await cancelWorkoutApi(workoutId);
-        sessionStorage.removeItem('workoutId');
-        sessionStorage.removeItem('workoutName');
-        await loadDashboard();
-    } catch (error) {
-        showMessage('message', 'Failed to cancel workout.', 'red');
-    }
+    showConfirm('Cancel this workout? All progress will be lost.', async () => {
+        const workoutId = sessionStorage.getItem('workoutId');
+        try {
+            await cancelWorkoutApi(workoutId);
+            sessionStorage.removeItem('workoutId');
+            sessionStorage.removeItem('workoutName');
+            await loadDashboard();
+        } catch (error) {
+            showMessage('message', 'Failed to cancel workout.', 'red');
+        }
+    });
 }
 
 //Validation helpers
