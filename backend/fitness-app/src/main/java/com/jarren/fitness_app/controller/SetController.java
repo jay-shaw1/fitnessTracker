@@ -1,6 +1,5 @@
 package com.jarren.fitness_app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.jarren.fitness_app.model.ExerciseSet;
@@ -17,8 +16,11 @@ import jakarta.validation.*;
 @RequestMapping("/api/sets")
 public class SetController {
 
-    @Autowired
-    private SetRepository setRepo;
+    private final SetRepository setRepo;
+
+    SetController(SetRepository setRepo){
+        this.setRepo = setRepo;
+    }
 
     @PostMapping
     public ResponseEntity<?> createSet(@Valid @RequestBody ExerciseSet set) {

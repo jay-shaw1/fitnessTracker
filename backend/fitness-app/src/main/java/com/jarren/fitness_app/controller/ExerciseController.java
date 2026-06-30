@@ -3,7 +3,6 @@ package com.jarren.fitness_app.controller;
 import org.springframework.web.bind.annotation.*;
 import com.jarren.fitness_app.repo.ExerciseRepository;
 import com.jarren.fitness_app.model.Exercise;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,11 @@ import jakarta.validation.*;
 @RequestMapping("/api/exercises")
 public class ExerciseController {
 
-    @Autowired
-    private ExerciseRepository exerciseRepo;
+    private final ExerciseRepository exerciseRepo;
+
+    ExerciseController(ExerciseRepository exerciseRepo){
+        this.exerciseRepo = exerciseRepo;
+    }
 
     @PostMapping
     public ResponseEntity<?> createExercise(@Valid @RequestBody Exercise exercise){
