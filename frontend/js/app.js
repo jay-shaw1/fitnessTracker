@@ -260,6 +260,19 @@ async function saveSet(){
 }
 
 async function saveAndContinue(action){
+    if (currentPage != 'sets.html'){
+        showConfirm('End workout and save your session?', async () => {
+            const workoutId = sessionStorage.getItem('workoutId');
+            try {
+                await endWorkout(workoutId);
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                showMessage('message', 'Unable to save workout.', 'red');
+            }
+        });
+        return;
+    }
+
     if (currentSet === 1){
         showMessage('message', 'Please save at least one set for this exercise.', 'red');
         return;
@@ -308,7 +321,7 @@ async function loadDashboard(){
     if (inProgress){
         resumeSection.style.display = 'block';
         startSection.style.display = 'none';
-        document.getElementById('resume-workout-name').textContent = `Resume: ${inProgress.name}`;
+        document.getElementById('resume-workout-name').textContent = inProgress.name;
     }else{
         resumeSection.style.display = 'none';
         startSection.style.display = 'block';

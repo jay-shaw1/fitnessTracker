@@ -531,15 +531,19 @@ button.danger:hover {
 
 #resume-section p {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text);
-  margin-top: 0.6rem;
+  padding-bottom: 20px;
+  margin-left: 20px;
 }
 
-#resume-section button { width: fit-content; }
+#resume-section button { 
+  width: 150px;
+  margin: 1px 20px;
+}
 
 #start-section button {
   width: 100%;
