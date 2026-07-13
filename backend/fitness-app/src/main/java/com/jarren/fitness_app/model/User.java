@@ -1,6 +1,5 @@
 package com.jarren.fitness_app.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -18,7 +17,6 @@ public class User {
     @NotBlank(message = "Email is required.")
     private String email;
 
-    @JsonIgnore
     @NotBlank(message = "Password is required.")
     @Size(min = 6, message = "Password must be at least 6 characters.")
     private String password;
