@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api" //Store root to backend
+const BASE_URL = "https://fitnesstracker-production-e386.up.railway.app/api" //Store root to backend
 
 //helper to build headers with token
 function authHeaders(){
