@@ -1,3 +1,7 @@
+## Live Demo
+Frontend: https://justfitness.netlify.app
+Backend API: https://fitnesstracker-production-e386.up.railway.app/
+
 # Just Fitness (JFit)
 
 A full-stack workout tracking application built to log gym sessions in real time. You track workouts, exercises, and sets with reps and weight, then review your history on a dashboard.
