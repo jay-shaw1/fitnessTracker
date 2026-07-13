@@ -32,7 +32,14 @@ public class UserController {
             return ResponseEntity.status(409).body("An account with this email already exists.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return ResponseEntity.ok(userRepo.save(user));
+        
+        userRepo.save(user);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("userId", user.getId());
+        response.put("username", user.getUsername());
+        response.put("email",user.getEmail());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
